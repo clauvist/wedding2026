@@ -1538,6 +1538,16 @@ async function runTest() {
   actions.insertBefore(btn, actions.firstChild);
 })();
 
+// Expose admin functions called from inline HTML event handlers (module scope
+// does not reach window, so onclick="fn()" would throw ReferenceError otherwise)
+window.toggleMissing  = toggleMissing;
+window.showQRPanel    = showQRPanel;
+window.resetAll       = resetAll;
+window.exportData     = exportData;
+window.confirmCheckin = confirmCheckin;
+window.clearPending   = clearPending;
+window.filterGuests   = filterGuests;
+
 // ─── GUEST CHECK-IN MODE ─────────────────────────────────────────────────────
 if (isCheckinMode) {
   document.body.style.overflow = 'auto';
