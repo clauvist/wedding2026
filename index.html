@@ -649,155 +649,214 @@
   </div>
 </div>
 
-<script>
-const guestData = [
-  {table:'VIP 1',name:'Tristan Loo (Groom)'},
-  {table:'VIP 1',name:'Regina Choy (Bride)'},
-  {table:'VIP 1',name:'Wong Laikin (Groom\'s mum)'},
-  {table:'VIP 1',name:'Peter Loo (Groom\'s dad)'},
-  {table:'VIP 1',name:'Teresa Chong (Tristan\'s Grandma)'},
-  {table:'VIP 1',name:'George Loo (Groom\'s uncle)'},
-  {table:'VIP 1',name:'Irene Yeow (Groom\'s Aunt)'},
-  {table:'VIP 1',name:'Renette Choy (Bride\'s sister)'},
-  {table:'VIP 1',name:'Cristin Lim (Bride\'s mum)'},
-  {table:'VIP 1',name:'Johnny Choy (Bride\'s dad)'},
-  {table:'VIP 1',name:'Regina\'s Grandma'},
-  {table:'1',name:'Wong Lai Wa'},{table:'1',name:'Elsie Wong'},{table:'1',name:'Kok Wai Kit'},
-  {table:'1',name:'Merilyn Jane Peter'},{table:'1',name:'Hayden Ryan Kit'},{table:'1',name:'Jared Paxten Kit'},
-  {table:'1',name:'Kok Mei Foong'},{table:'1',name:'Joshua Selvakumar'},{table:'1',name:'Patricia Loh'},
-  {table:'1',name:'Laurence Lui'},
-  {table:'2',name:'Peter Chen'},{table:'2',name:'Winnie Chen'},{table:'2',name:'Alison Chen'},
-  {table:'2',name:'Terence Chuah'},{table:'2',name:'Amelia Chuah'},{table:'2',name:'Liu Pu'},
-  {table:'2',name:'Carmen Chen'},{table:'2',name:'Chloe Liu'},{table:'2',name:'Caleb Liu'},
-  {table:'3',name:'Chow Ming Thim'},{table:'3',name:'Jerry Ow'},{table:'3',name:'Tan Chek Sim'},
-  {table:'3',name:'Jerrel Wong'},{table:'3',name:'Dennis Tan'},{table:'3',name:'Cynthia Chan'},
-  {table:'3',name:'Yandy Lee'},{table:'3',name:'Riko Phuah'},
-  {table:'5',name:'Mickle Tan'},{table:'5',name:'Low Shi Ping'},{table:'5',name:'Jacqueline Cheong'},
-  {table:'5',name:'Yeo Kangwei'},{table:'5',name:'Tay Lee Eng'},{table:'5',name:'Kenny Goh'},
-  {table:'5',name:'Joanne Mah'},{table:'5',name:'Oliver Low'},{table:'5',name:'Francis Ong'},
-  {table:'6',name:'Chen Yaosen'},{table:'6',name:'Chang Lih Yun'},{table:'6',name:'Lee Siow Yuen'},
-  {table:'6',name:'Lee Wai Kong'},{table:'6',name:'Abhilash Menon'},{table:'6',name:'Loh Zhi Chang'},
-  {table:'6',name:'Kwok Tian Chee'},{table:'6',name:'Joseph Lim YS'},{table:'6',name:'Neo Jia Ming'},
-  {table:'6',name:'Leonard Lai'},
-  {table:'7',name:'Jack Ng Chen Hwi'},{table:'7',name:'Loo Zi Wei'},{table:'7',name:'Joseph Lim CK'},
-  {table:'7',name:'Png Qun Jia'},{table:'7',name:'Nicole Lim'},{table:'7',name:'Ong Di Yong'},
-  {table:'7',name:'Adrian Chin'},{table:'7',name:'Khit Yok Khiong'},{table:'7',name:'Dixie Tan'},
-  {table:'7',name:'Marcus Chia'},
-  {table:'8',name:'Joshua Zhang'},{table:'8',name:'Teo Yong Kim'},{table:'8',name:'Ng Wei Yang'},
-  {table:'8',name:'Xie Jian Long'},{table:'8',name:'Karthik'},{table:'8',name:'Edwin Ang'},
-  {table:'8',name:'Lee Ying Xin'},{table:'8',name:'Shaun Tay'},{table:'8',name:'Krystal Yoong'},
-  {table:'9',name:'Alvin Chan'},{table:'9',name:'Lim Shiyun'},{table:'9',name:'Huang Jiesi'},
-  {table:'9',name:'Lee Yuan Guang'},{table:'9',name:'Ong Zhen Zhen'},{table:'9',name:'Liu Zhe Yong'},
-  {table:'9',name:'Lionel Lim GC'},{table:'9',name:'William Pung'},{table:'9',name:'YZ Pung'},
-  {table:'9',name:'Bernard Tan MS'},
-  {table:'10',name:'Chan Chee Wai'},{table:'10',name:'Jackson Tan'},{table:'10',name:'Ivan Yap'},
-  {table:'10',name:'Ng Beng Heng'},{table:'10',name:'Adeline Wan'},{table:'10',name:'Chua Yen Ling'},
-  {table:'10',name:'Titus Kwong'},{table:'10',name:'Darren Teo'},{table:'10',name:'Alvin Huang'},
-  {table:'11',name:'Marcus Lim'},{table:'11',name:'Charmaine Tan'},{table:'11',name:'Ng Boon Gan'},
-  {table:'11',name:'Ryan Chan'},{table:'11',name:'Clara How'},{table:'11',name:'Keith Lim'},
-  {table:'11',name:'Lee Chee How'},{table:'11',name:'Sylvester Long'},{table:'11',name:'Sarah Soon'},
-  {table:'12',name:'Florence Eio'},{table:'12',name:'CK Eio'},{table:'12',name:'Sharleen Eio'},
-  {table:'12',name:'Tham Bee Hong'},{table:'12',name:'Kelly Tham'},{table:'12',name:'Caroline Lai'},
-  {table:'12',name:'Daniel Tan'},{table:'12',name:'Leong Mun Wai'},
-  {table:'13',name:'Richard Choy'},{table:'13',name:'Catherine Tan'},{table:'13',name:'Winnie Choy'},
-  {table:'13',name:'Winchester Choy'},{table:'13',name:'Helper'},{table:'13',name:'Kelly Lim'},
-  {table:'13',name:'Andy Tan'},{table:'13',name:'Bernice Lim'},{table:'13',name:'Evon Yu'},
-  {table:'13',name:'Yvonne Teo'},
-  {table:'15',name:'Phyllis Loh'},{table:'15',name:'Kenny Lin'},{table:'15',name:'Sophie Lin'},
-  {table:'15',name:'Ernest Lin'},{table:'15',name:'Leow Lin Kai'},{table:'15',name:'Lim Chun Wei'},
-  {table:'15',name:'Bertrice Tiong'},{table:'15',name:'Brian Sng'},{table:'15',name:'Gwendy Tan'},
-  {table:'15',name:'Shane Lim'},
-  {table:'16',name:'Keck Teng Hong'},{table:'16',name:'Audrey Kwok'},{table:'16',name:'Lucas Leong'},
-  {table:'16',name:'Tan Qian Yee'},{table:'16',name:'Tan Jo Ann'},{table:'16',name:'Khayne Khaw'},
-  {table:'16',name:'Vivegan Visvalingam'},{table:'16',name:'Kelicia Low'},{table:'16',name:'Angie Pay'},
-  {table:'16',name:'Zechariah Cheah'},{table:'16',name:'Adeline Liew'},
-  {table:'17',name:'Benjamin Ng'},{table:'17',name:'Koh Teng Shun'},{table:'17',name:'Melissa Koh'},
-  {table:'17',name:'Hazel Chua'},{table:'17',name:'Kelly Teo'},{table:'17',name:'Samantha Low'},
-  {table:'17',name:'Jofid Leong'},{table:'17',name:'Zheng Yong Kang'},{table:'17',name:'Natalie Toh'},
-  {table:'17',name:'Michael Chelliah'},
-  {table:'18',name:'Avery Khoo'},{table:'18',name:'Lim Yaochong'},{table:'18',name:'Sheryl Lim'},
-  {table:'18',name:'Calvin Yip'},{table:'18',name:'Lim Jun Jie'},{table:'18',name:'Bernard Tan KX'},
-  {table:'18',name:'Chan Wei Ming'},{table:'18',name:'Sebastian Seah'},{table:'18',name:'Kelvin Chew'},
-  {table:'18',name:'Zechy Wong'},
-  {table:'19',name:'Malcolm Chu'},{table:'19',name:'Melvir Singh'},{table:'19',name:'Chen Yanchang'},
-  {table:'19',name:'Xing Yi Quan'},{table:'19',name:'Mark Lee'},{table:'19',name:'Winston Chan'},
-  {table:'19',name:'Harry Pua'},{table:'19',name:'Lua Choon Ngee'},{table:'19',name:'Huang Sunjing'},
-  {table:'19',name:'Yang Jianqing'},
-  {table:'20',name:'Lim Kim Joo'},{table:'20',name:'Angie Siong'},{table:'20',name:'Chen Shi Qi'},
-  {table:'20',name:'Josiah Ho'},{table:'20',name:'Jasmine Lin'},{table:'20',name:'Ng Jun Hao'},
-  {table:'20',name:'Lim Poh Cheong'},{table:'20',name:'Aloysius Teo'},{table:'20',name:'Charmaine Chew'},
-  {table:'20',name:'Linda Shepherdson'},
-  {table:'21',name:'Jasmine Goon'},{table:'21',name:'Elena Tan'},{table:'21',name:'Koh Kai Feng'},
-  {table:'21',name:'Cheng Yi Qing'},{table:'21',name:'Trina Chan'},{table:'21',name:'Tung Yi Jung'},
-  {table:'21',name:'Wong Liang Kai'},{table:'21',name:'Ray (BC)'},
-  {table:'22',name:'Micah Chu'},{table:'22',name:'May Chng'},{table:'22',name:'Lionel Lim'},
-  {table:'22',name:'Lucas Snarski'},{table:'22',name:'Lindsay Laronde'},{table:'22',name:'Jiang Yue'},
-  {table:'22',name:'Scott Hew'},{table:'22',name:'Stefanie Ang'},{table:'22',name:'Peter Seah'},
-  {table:'23',name:'Huangyu Hu Hua'},{table:'23',name:'Huang Chun Mei'},{table:'23',name:'Jack Oh'},
-  {table:'23',name:'Jeannie Chen'},{table:'23',name:'Ajun'},{table:'23',name:'Eileen Lu'},
-  {table:'23',name:'Lin Da Jiang'},{table:'23',name:'Maggie Lin'},{table:'23',name:'Ron Lau'},
-  {table:'23',name:'Claudia Lau'},{table:'23',name:'Ken Chua'},
-  {table:'25',name:'Christine Choy'},{table:'25',name:'Eugene Chong'},{table:'25',name:'Xing Chew'},
-  {table:'25',name:'Chong Yi Han (BC)'},{table:'25',name:'Chong Ze Yuan'},{table:'25',name:'Serene Choy'},
-  {table:'25',name:'Lee Siew Yang'},{table:'25',name:'Edward Lee'},{table:'25',name:'Alvin Lee'},
-  {table:'25',name:'Jurong auntie'},
-  {table:'26',name:'Lim Yee Leng'},{table:'26',name:'Lim Wee Chew'},{table:'26',name:'Cicilia Lim'},
-  {table:'26',name:'Yau Hean Leong'},{table:'26',name:'Carolyn Lim'},{table:'26',name:'George Ng'},
-  {table:'26',name:'Ryan Ng'},{table:'26',name:'Grace Tham'},{table:'26',name:'Jarran Ng'},
-  {table:'26',name:'Aunty Lisa'},
-];
+<script type="module">
+// ─── FIREBASE SETUP ──────────────────────────────────────────────────────────
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getDatabase, ref, onValue, set, update, get }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-// Table layout mirrored from the ballroom image
-// Ballroom white area: y=122 (top) to y=822 (bottom), x=52 (left) to x=528 (right)
-// Chair radius r=38, dot size 8px → outer reach = 46px from centre
-// Row spacing 95px (≥92 needed to avoid overlap), starting cy=175
-// Col pairs: left 75,170 | right 410,505
+const firebaseConfig = {
+  apiKey: "AIzaSyBcP5c93THp0pbkUOL7wX01tqDFKqkC0UI",
+  authDomain: "wedding2026-8e5be.firebaseapp.com",
+  databaseURL: "https://wedding2026-8e5be-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "wedding2026-8e5be",
+  storageBucket: "wedding2026-8e5be.firebasestorage.app",
+  messagingSenderId: "363338515245",
+  appId: "1:363338515245:web:788cb18bf1dc733c8949a4"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getDatabase(app);
+
+const GUEST_PIN = '1234';
+
+// ─── STATIC DATA (layout only — guest list comes from Firebase) ───────────────
 const tables = [
-  // Row 1 (just below stage)
   {id:'1',     cx:75,  cy:175, type:'teal'},
   {id:'VIP 1', cx:170, cy:175, type:'vip'},
   {id:'26',    cx:410, cy:175, type:'teal'},
   {id:'25',    cx:505, cy:175, type:'teal'},
-  // Row 2
   {id:'2',     cx:75,  cy:270, type:'teal'},
   {id:'12',    cx:170, cy:270, type:'teal'},
   {id:'13',    cx:410, cy:270, type:'teal'},
   {id:'23',    cx:505, cy:270, type:'teal'},
-  // Row 3
   {id:'3',     cx:75,  cy:365, type:'teal'},
   {id:'11',    cx:170, cy:365, type:'teal'},
   {id:'15',    cx:410, cy:365, type:'teal'},
   {id:'22',    cx:505, cy:365, type:'teal'},
-  // Row 4
   {id:'5',     cx:75,  cy:460, type:'teal'},
   {id:'10',    cx:170, cy:460, type:'teal'},
   {id:'16',    cx:410, cy:460, type:'teal'},
   {id:'21',    cx:505, cy:460, type:'teal'},
-  // Row 5
   {id:'6',     cx:75,  cy:555, type:'teal'},
   {id:'9',     cx:170, cy:555, type:'teal'},
   {id:'17',    cx:410, cy:555, type:'teal'},
   {id:'20',    cx:505, cy:555, type:'teal'},
-  // Row 6
   {id:'7',     cx:75,  cy:650, type:'teal'},
   {id:'8',     cx:170, cy:650, type:'teal'},
   {id:'18',    cx:410, cy:650, type:'teal'},
   {id:'19',    cx:505, cy:650, type:'teal'},
 ];
 
-// Note: table 4 is missing from guest list (likely table 4 doesn't exist)
-// table 14 and 24 also not in guest list
-
-let selectedTable = null;
-let arrivedGuests = new Set();
+// ─── APP STATE ────────────────────────────────────────────────────────────────
+let guestData     = [];           // loaded from Firebase
+let guestsByTable = {};
+let arrivedGuests = new Set();    // synced from Firebase in real time
+let selectedTable   = null;
 let showMissingOnly = false;
 let pendingCheckins = new Set();
-const guestsByTable = {};
 
-guestData.forEach(g => {
-  if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
-  guestsByTable[g.table].push(g);
-});
+// ─── FIREBASE KEY HELPERS ─────────────────────────────────────────────────────
+// Firebase keys can't contain . # $ [ ] — encode guest names for use as keys
+function toKey(name) {
+  return encodeURIComponent(name).replace(/\./g, '%2E');
+}
+function fromKey(key) {
+  return decodeURIComponent(key);
+}
+
+// ─── WRITE HELPERS ────────────────────────────────────────────────────────────
+async function fbSetCheckin(guestName, value) {
+  await set(ref(db, `checkins/${toKey(guestName)}`), value);
+}
+async function fbSetCheckinMulti(keys, value) {
+  const updates = {};
+  keys.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = value; });
+  await update(ref(db), updates);
+}
+
+// ─── LOGIN SCREEN ─────────────────────────────────────────────────────────────
+function showLoginScreen(errorMsg) {
+  document.querySelector('header').style.display = 'none';
+  document.querySelector('.layout').style.display = 'none';
+
+  let existing = document.getElementById('auth-screen');
+  if (existing) existing.remove();
+
+  const screen = document.createElement('div');
+  screen.id = 'auth-screen';
+  screen.style.cssText = 'position:fixed;inset:0;background:var(--cream);display:flex;align-items:center;justify-content:center;z-index:9999;';
+  screen.innerHTML = `
+    <div style="width:100%;max-width:360px;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:32px;">
+        <div style="font-family:\'Cormorant Garamond\',serif;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#b8935a;margin-bottom:10px;">Admin Access</div>
+        <div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:#2c2c2c;">Tristan <span style="font-style:italic;color:#b8935a;">&</span> Regina</div>
+        <div style="font-size:12px;color:#7a7a7a;margin-top:6px;">Wedding Seating — 2 May 2026</div>
+      </div>
+      <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:24px;">
+        <div style="font-size:12px;color:#7a7a7a;margin-bottom:14px;">Sign in to access the admin panel</div>
+        <input id="login-email" type="email" placeholder="Email address" autocomplete="email"
+          style="width:100%;padding:11px 14px;font-family:\'DM Sans\',sans-serif;font-size:14px;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;margin-bottom:10px;">
+        <input id="login-password" type="password" placeholder="Password" autocomplete="current-password"
+          style="width:100%;padding:11px 14px;font-family:\'DM Sans\',sans-serif;font-size:14px;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;margin-bottom:${errorMsg ? '10px' : '18px'};">
+        ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-bottom:12px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
+        <button id="login-btn" style="width:100%;padding:13px;background:#7a8c78;border:none;border-radius:10px;font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:500;color:white;cursor:pointer;">Sign in</button>
+      </div>
+    </div>`;
+  document.body.appendChild(screen);
+
+  const emailEl = screen.querySelector('#login-email');
+  const passEl  = screen.querySelector('#login-password');
+  const btn     = screen.querySelector('#login-btn');
+
+  const doLogin = async () => {
+    const email = emailEl.value.trim();
+    const pass  = passEl.value;
+    if (!email || !pass) return;
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+    } catch (e) {
+      const msg = e.code === 'auth/invalid-credential' ? 'Incorrect email or password.' : 'Sign-in failed. Please try again.';
+      showLoginScreen(msg);
+    }
+  };
+
+  btn.addEventListener('click', doLogin);
+  passEl.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  emailEl.focus();
+}
+
+// ─── BOOT: AUTH GATE ─────────────────────────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const isCheckinMode = params.has('checkin');
+
+if (isCheckinMode) {
+  // Guest flow — handled after DOM is ready, no auth needed
+  document.querySelector('header').style.display = 'none';
+  document.querySelector('.layout').style.display = 'none';
+} else {
+  // Admin flow — require auth
+  showLoginScreen();
+
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      document.getElementById('auth-screen')?.remove();
+      await bootAdmin();
+    } else {
+      showLoginScreen();
+    }
+  });
+}
+
+// ─── ADMIN BOOT ───────────────────────────────────────────────────────────────
+async function bootAdmin() {
+  document.querySelector('header').style.display = '';
+  document.querySelector('.layout').style.display = '';
+
+  // Add sign-out button to header
+  if (!document.getElementById('signout-btn')) {
+    const btn = document.createElement('button');
+    btn.id = 'signout-btn';
+    btn.className = 'btn';
+    btn.textContent = 'Sign out';
+    btn.onclick = () => signOut(auth);
+    document.querySelector('.header-actions').appendChild(btn);
+  }
+
+  // Load guest list from Firebase
+  const guestSnap = await get(ref(db, 'guests'));
+  if (guestSnap.exists()) {
+    const raw = guestSnap.val();
+    guestData = Object.values(raw);
+    guestsByTable = {};
+    guestData.forEach(g => {
+      if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
+      guestsByTable[g.table].push(g);
+    });
+  }
+
+  // Listen to check-ins in real time
+  onValue(ref(db, 'checkins'), snap => {
+    arrivedGuests = new Set();
+    if (snap.exists()) {
+      Object.entries(snap.val()).forEach(([key, val]) => {
+        if (val === true) {
+          const name = fromKey(key);
+          // Find this guest's table
+          const g = guestData.find(g => g.name === name);
+          if (g) arrivedGuests.add(g.table + '|' + g.name);
+        }
+      });
+    }
+    // Refresh UI
+    renderGuests();
+    updateStats();
+    if (selectedTable) updateTableRatio(selectedTable);
+  });
+
+  initBallroom();
+  renderGuests();
+  scaleBallroom();
+  window.addEventListener('resize', scaleBallroom);
+}
+
+// ─── GUEST DATA (kept for backward compat with functions that reference it) ────
+// guestData is now populated from Firebase above. Define empty array as fallback.
+
 
 function initBallroom() {
   const ballroom = document.getElementById('ballroom');
@@ -1054,14 +1113,19 @@ function makeGuestItem(g) {
   });
 
   // Direct check-in tick (existing behaviour)
-  item.querySelector('.checkin-cell').addEventListener('click', (e) => {
+  item.querySelector('.checkin-cell').addEventListener('click', async (e) => {
     e.stopPropagation();
     const k = e.currentTarget.dataset.key;
-    if (arrivedGuests.has(k)) arrivedGuests.delete(k);
-    else { arrivedGuests.add(k); pendingCheckins.delete(k); }
+    const guestName = k.split('|')[1];
+    if (arrivedGuests.has(k)) {
+      await fbSetCheckin(guestName, false);
+    } else {
+      pendingCheckins.delete(k);
+      await fbSetCheckin(guestName, true);
+    }
     if (selectedTable === g.table) updateTableRatio(g.table);
     updateActionBar();
-    renderGuests();
+    // renderGuests is triggered by the onValue listener
   });
 
   return item;
@@ -1147,41 +1211,32 @@ function clearPending() {
   renderGuests();
 }
 
-function confirmCheckin() {
+async function confirmCheckin() {
   if (pendingCheckins.size === 0) return;
 
   const checkedIn    = [...pendingCheckins].filter(k => arrivedGuests.has(k));
   const notCheckedIn = [...pendingCheckins].filter(k => !arrivedGuests.has(k));
   const mixed        = checkedIn.length > 0 && notCheckedIn.length > 0;
-  if (mixed) return; // button is disabled, but guard anyway
+  if (mixed) return;
 
+  const updates = {};
   if (checkedIn.length > 0 && notCheckedIn.length === 0) {
-    // De-register all selected
-    checkedIn.forEach(key => arrivedGuests.delete(key));
+    checkedIn.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = false; });
   } else {
-    // Check in all selected
-    notCheckedIn.forEach(key => { arrivedGuests.add(key); });
+    notCheckedIn.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = true; });
   }
+  await update(ref(db), updates);
 
   pendingCheckins.clear();
-  if (selectedTable) updateTableRatio(selectedTable);
   updateActionBar();
-  renderGuests();
+  // renderGuests triggered by onValue listener
 
-  // Flash
   const list = document.getElementById('guestList');
   const flash = document.createElement('div');
   flash.className = 'flash-success';
   list.style.position = 'relative';
   list.appendChild(flash);
   flash.addEventListener('animationend', () => flash.remove());
-
-  updateStats();
-  if (selectedTable) {
-    const guests = guestsByTable[selectedTable] || [];
-    const arrivedCount = guests.filter(g => arrivedGuests.has(g.table + '|' + g.name)).length;
-    document.getElementById('sidebarSub').textContent = `${guests.length} guests · ${arrivedCount} checked in`;
-  }
 }
 
 function updateStats() {
@@ -1191,15 +1246,15 @@ function updateStats() {
     `<strong>${arrived}</strong> / ${total} arrived`;
 }
 
-function resetAll() {
+async function resetAll() {
   if (confirm('Reset all check-ins?')) {
-    arrivedGuests.clear();
+    await set(ref(db, 'checkins'), null);
     pendingCheckins.clear();
     showMissingOnly = false;
     const btn = document.getElementById('missingBtn');
     if (btn) { btn.textContent = 'Show Missing Guests'; btn.classList.remove('active'); }
     updateActionBar();
-    renderGuests();
+    // renderGuests triggered by onValue listener
   }
 }
 
@@ -1482,69 +1537,109 @@ function runTest() {
 })();
 
 // ─── GUEST CHECK-IN MODE ─────────────────────────────────────────────────────
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  if (!params.has('checkin')) return;
-
-  // Hide admin UI completely
-  document.querySelector('header').style.display = 'none';
-  document.querySelector('.layout').style.display = 'none';
+if (isCheckinMode) {
   document.body.style.overflow = 'auto';
   document.body.style.height = 'auto';
   document.body.style.background = '#faf8f4';
 
-  // State
-  let resolvedGuest = null; // { name, table }
+  let resolvedGuest = null;
 
-  // Build overlay
   const overlay = document.createElement('div');
   overlay.id = 'guest-overlay';
   overlay.style.cssText = 'min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 0 48px;';
   document.body.appendChild(overlay);
 
-  // ── Fuzzy match: Levenshtein distance ───────────────────────────────────────
+  // ── Fuzzy match ──────────────────────────────────────────────────────────────
   function levenshtein(a, b) {
     a = a.toLowerCase(); b = b.toLowerCase();
     const m = a.length, n = b.length;
-    const dp = Array.from({length: m+1}, (_, i) => Array.from({length: n+1}, (_, j) => i === 0 ? j : j === 0 ? i : 0));
-    for (let i = 1; i <= m; i++)
-      for (let j = 1; j <= n; j++)
-        dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    const dp = Array.from({length:m+1}, (_,i) => Array.from({length:n+1}, (_,j) => i===0?j:j===0?i:0));
+    for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+      dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1] : 1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
     return dp[m][n];
   }
 
   function findMatches(query) {
     const q = query.trim().toLowerCase();
     if (q.length < 2) return [];
-
-    // Strip parenthetical suffixes from a word for cleaner matching
-    const cleanWord = w => w.replace(/[(),.'"]/g, '');
-
-    // Score: 0 if any word starts-with or contains query; else best Levenshtein vs individual words only
+    const cleanWord = w => w.replace(/[(),.'"]/g,'');
     const scored = guestData.map(g => {
       const words = g.name.toLowerCase().split(' ').map(cleanWord).filter(Boolean);
       let score;
-      if (words.some(w => w.startsWith(q)))      score = 0;
-      else if (words.some(w => w.includes(q)))   score = 0;
+      if (words.some(w => w.startsWith(q)))    score = 0;
+      else if (words.some(w => w.includes(q))) score = 0;
       else score = Math.min(...words.map(w => levenshtein(q, w)));
       return { g, score };
     });
-
-    // Threshold: allow at most 1 edit (strict < 2), so score must be 0 or 1
-    return scored
-      .filter(({score}) => score < 2)
-      .sort((a, b) => a.score - b.score)
-      .slice(0, 6)
-      .map(({g}) => g);
+    return scored.filter(({score}) => score < 2).sort((a,b) => a.score-b.score).slice(0,6).map(({g}) => g);
   }
 
-  // ── Event header block (reused across screens) ───────────────────────────────
   const eventHeader = `
     <div style="text-align:center;padding:48px 0 28px;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#b8935a;margin-bottom:10px;">Welcome to</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#2c2c2c;line-height:1.2;">Tristan <span style="font-style:italic;color:#b8935a;">&amp;</span> Regina</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#7a7a7a;margin-top:6px;letter-spacing:0.04em;">Saturday, 2 May 2026</div>
     </div>`;
+
+  // ── SCREEN -1: PIN ───────────────────────────────────────────────────────────
+  function renderPin(errorMsg) {
+    overlay.innerHTML = `
+      <div style="width:100%;max-width:420px;padding:0 20px;">
+        ${eventHeader}
+        <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
+          <div style="font-size:13px;font-weight:500;color:#2c2c2c;margin-bottom:6px;">Enter event PIN</div>
+          <div style="font-size:12px;color:#7a7a7a;margin-bottom:20px;">Your PIN is on your invitation.</div>
+          <div style="display:flex;justify-content:center;gap:10px;margin-bottom:${errorMsg?'10px':'20px'};">
+            ${[0,1,2,3].map(i=>`<input id="pin${i}" type="password" inputmode="numeric" maxlength="1"
+              style="width:48px;height:56px;text-align:center;font-size:22px;font-weight:500;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;">`).join('')}
+          </div>
+          ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-bottom:14px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
+          <button id="pinBtn" style="width:100%;padding:14px;background:#7a8c78;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:white;cursor:pointer;">Continue →</button>
+        </div>
+      </div>`;
+
+    const inputs = [0,1,2,3].map(i => document.getElementById(`pin${i}`));
+    inputs[0].focus();
+
+    inputs.forEach((inp, i) => {
+      inp.addEventListener('input', () => {
+        inp.value = inp.value.replace(/\D/g,'').slice(-1);
+        if (inp.value && i < 3) inputs[i+1].focus();
+        if (inputs.every(x => x.value)) checkPin();
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
+      });
+    });
+
+    const checkPin = () => {
+      const pin = inputs.map(x => x.value).join('');
+      if (pin === GUEST_PIN) {
+        loadGuestsThenSearch();
+      } else {
+        inputs.forEach(x => x.value = '');
+        renderPin('Incorrect PIN. Please try again.');
+      }
+    };
+
+    document.getElementById('pinBtn').addEventListener('click', checkPin);
+  }
+
+  async function loadGuestsThenSearch() {
+    if (guestData.length === 0) {
+      overlay.innerHTML = `<div style="padding:80px 20px;text-align:center;color:#7a7a7a;font-size:14px;">Loading guest list…</div>`;
+      const snap = await get(ref(db, 'guests'));
+      if (snap.exists()) {
+        guestData = Object.values(snap.val());
+        guestsByTable = {};
+        guestData.forEach(g => {
+          if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
+          guestsByTable[g.table].push(g);
+        });
+      }
+    }
+    renderSearch();
+  }
 
   // ── SCREEN 0: Name search ────────────────────────────────────────────────────
   function renderSearch(prefill) {
@@ -1555,51 +1650,38 @@ function runTest() {
           <div style="font-size:13px;font-weight:500;color:#2c2c2c;margin-bottom:6px;">Your name</div>
           <div style="font-size:12px;color:#7a7a7a;margin-bottom:16px;">Type your name as it appears on your invitation.</div>
           <input id="nameInput" type="text" autocomplete="off" autocorrect="off" spellcheck="false"
-            placeholder="e.g. Tony Siew"
-            value="${prefill || ''}"
+            placeholder="e.g. Tony Siew" value="${prefill||''}"
             style="width:100%;padding:13px 14px;font-family:'DM Sans',sans-serif;font-size:15px;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;transition:border-color 0.15s;"
-            oninput="handleInput()"
-            onkeydown="if(event.key==='Enter')handleSearch()">
+            oninput="handleInput()" onkeydown="if(event.key==='Enter')handleSearch()">
           <div id="matchList" style="display:none;"></div>
           <div id="noMatchMsg" style="display:none;font-size:12px;color:#c0392b;margin-top:10px;padding:10px 12px;background:#fdf0ee;border-radius:8px;">
             No guest found. Please check your spelling or ask a member of staff for help.
           </div>
         </div>
-        <button onclick="handleSearch()" style="width:100%;padding:16px;background:#7a8c78;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:white;cursor:pointer;transition:opacity 0.15s;" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">
-          Find my seat →
-        </button>
+        <button onclick="handleSearch()" style="width:100%;padding:16px;background:#7a8c78;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:white;cursor:pointer;">Find my seat →</button>
       </div>`;
 
     const input = document.getElementById('nameInput');
     input.focus();
-    input.style.borderColor = '#e0dbd4';
     setTimeout(() => { input.setSelectionRange(input.value.length, input.value.length); }, 0);
 
-    window.handleInput = function() {
+    window.handleInput = () => {
       document.getElementById('matchList').style.display = 'none';
       document.getElementById('noMatchMsg').style.display = 'none';
       input.style.borderColor = '#e0dbd4';
     };
 
-    window.handleSearch = function() {
-      const q = document.getElementById('nameInput').value.trim();
+    window.handleSearch = () => {
+      const q = input.value.trim();
       if (!q) return;
       const exact = guestData.find(g => g.name.toLowerCase() === q.toLowerCase());
-      if (exact) {
-        resolvedGuest = exact;
-        renderConfirm();
-        return;
-      }
+      if (exact) { resolvedGuest = exact; renderConfirm(); return; }
       const matches = findMatches(q);
-      if (matches.length > 0) {
-        showMatchList(matches);
-      } else {
-        document.getElementById('noMatchMsg').style.display = 'block';
-        input.style.borderColor = '#e05858';
-      }
+      if (matches.length > 0) showMatchList(matches);
+      else { document.getElementById('noMatchMsg').style.display = 'block'; input.style.borderColor = '#e05858'; }
     };
 
-    window.acceptSuggestion = function(name, table) {
+    window.acceptSuggestion = (name, table) => {
       resolvedGuest = { name, table };
       renderConfirm();
     };
@@ -1608,63 +1690,52 @@ function runTest() {
   function showMatchList(matches) {
     const box = document.getElementById('matchList');
     box.style.cssText = 'display:block;margin-top:14px;border:1.5px solid #c8d4c6;border-radius:12px;overflow:hidden;';
-    box.innerHTML =
-      `<div style="background:#eef2ed;padding:8px 14px;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a8c78;">Select your name</div>` +
+    box.innerHTML = `<div style="background:#eef2ed;padding:8px 14px;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a8c78;">Select your name</div>` +
       matches.map(g => {
-        const isVip = g.table === 'VIP 1';
+        const isVip = g.table==='VIP 1';
         const initials = g.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
-        const safeName = g.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-        const safeTable = g.table.replace(/'/g,"\\'");
+        const sn = g.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        const st = g.table.replace(/'/g,"\\'");
         return `<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #f5f3f0;">
-          <div style="width:36px;height:36px;border-radius:50%;background:${isVip ? '#e8d5b0' : '#c8d4c6'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:${isVip ? '#b8935a' : '#7a8c78'};flex-shrink:0;">${initials}</div>
-          <div style="flex:1;">
-            <div style="font-size:14px;font-weight:500;color:#2c2c2c;">${g.name}</div>
-            <div style="font-size:11px;color:#7a7a7a;margin-top:1px;">Table ${g.table}</div>
-          </div>
-          <button onclick="acceptSuggestion('${safeName}','${safeTable}')" style="padding:7px 14px;background:#7a8c78;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:white;cursor:pointer;flex-shrink:0;">That's me</button>
+          <div style="width:36px;height:36px;border-radius:50%;background:${isVip?'#e8d5b0':'#c8d4c6'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:${isVip?'#b8935a':'#7a8c78'};flex-shrink:0;">${initials}</div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:500;color:#2c2c2c;">${g.name}</div><div style="font-size:11px;color:#7a7a7a;margin-top:1px;">Table ${g.table}</div></div>
+          <button onclick="acceptSuggestion('${sn}','${st}')" style="padding:7px 14px;background:#7a8c78;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:white;cursor:pointer;flex-shrink:0;">That's me</button>
         </div>`;
       }).join('') +
-      `<div style="padding:10px 14px;background:#faf9f7;">
-        <button onclick="document.getElementById('matchList').style.display='none';document.getElementById('nameInput').focus();" style="background:none;border:none;font-family:'DM Sans',sans-serif;font-size:12px;color:#7a7a7a;cursor:pointer;padding:0;">None of these — try again</button>
-      </div>`;
+      `<div style="padding:10px 14px;background:#faf9f7;"><button onclick="document.getElementById('matchList').style.display='none';document.getElementById('nameInput').focus();" style="background:none;border:none;font-family:'DM Sans',sans-serif;font-size:12px;color:#7a7a7a;cursor:pointer;padding:0;">None of these — try again</button></div>`;
   }
 
   // ── SCREEN 1: Confirm ────────────────────────────────────────────────────────
   function renderConfirm() {
     const { name: guestName, table: tableId } = resolvedGuest;
-    const tablemates = guestData.filter(g => g.table === tableId && g.name !== guestName);
-    const isVip = tableId === 'VIP 1';
-    const alreadyIn = arrivedGuests.has(tableId + '|' + guestName);
+    const tablemates = guestData.filter(g => g.table===tableId && g.name!==guestName);
+    const isVip = tableId==='VIP 1';
+    const alreadyIn = arrivedGuests.has(tableId+'|'+guestName);
     const initials = guestName.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
 
     overlay.innerHTML = `
       <div style="width:100%;max-width:420px;padding:0 20px;">
         ${eventHeader}
         <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
-          <div style="width:56px;height:56px;border-radius:50%;background:${isVip ? '#e8d5b0' : '#c8d4c6'};display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px;font-weight:500;color:${isVip ? '#b8935a' : '#7a8c78'};">${initials}</div>
+          <div style="width:56px;height:56px;border-radius:50%;background:${isVip?'#e8d5b0':'#c8d4c6'};display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px;font-weight:500;color:${isVip?'#b8935a':'#7a8c78'};">${initials}</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#2c2c2c;margin-bottom:4px;">${guestName}</div>
-          ${isVip ? `<div style="display:inline-block;background:#e8d5b0;color:#b8935a;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin:4px 0 10px;">VIP Table</div>` : ''}
+          ${isVip?`<div style="display:inline-block;background:#e8d5b0;color:#b8935a;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin:4px 0 10px;">VIP Table</div>`:''}
           <div style="font-size:13px;color:#7a7a7a;margin-top:10px;">Your seat is at</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:500;color:#2c2c2c;line-height:1.1;">Table ${tableId}</div>
         </div>
-
         <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:20px;margin-bottom:20px;">
           <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a7a7a;margin-bottom:14px;">Your tablemates</div>
-          ${tablemates.length === 0
-            ? `<div style="font-size:13px;color:#aaa;text-align:center;">No other guests at this table</div>`
-            : tablemates.map(t => `
-              <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f5f3f0;">
-                <div style="width:28px;height:28px;border-radius:50%;background:#eef2ed;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#7a8c78;flex-shrink:0;">${t.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')}</div>
-                <div style="font-size:13px;color:#2c2c2c;">${t.name}</div>
-              </div>`).join('')}
+          ${tablemates.length===0?`<div style="font-size:13px;color:#aaa;text-align:center;">No other guests at this table</div>`:tablemates.map(t=>`
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f5f3f0;">
+              <div style="width:28px;height:28px;border-radius:50%;background:#eef2ed;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#7a8c78;flex-shrink:0;">${t.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')}</div>
+              <div style="font-size:13px;color:#2c2c2c;">${t.name}</div>
+            </div>`).join('')}
         </div>
-
         <button onclick="goBack()" style="width:100%;padding:12px;background:none;border:1.5px solid #e0dbd4;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;color:#7a7a7a;cursor:pointer;margin-bottom:10px;">← Not me, search again</button>
-
         ${alreadyIn
           ? `<div style="text-align:center;padding:16px;background:#eef2ed;border-radius:12px;color:#7a8c78;font-size:14px;font-weight:500;">You are already checked in ✓</div>
              <button onclick="doShowTableView()" style="margin-top:10px;width:100%;padding:16px;background:white;border:1.5px solid #c8d4c6;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:#7a8c78;cursor:pointer;">View your table →</button>`
-          : `<button id="checkinBtn" onclick="doCheckin()" style="width:100%;padding:18px;background:#7a8c78;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:white;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">Check me in</button>`}
+          : `<button id="checkinBtn" onclick="doCheckin()" style="width:100%;padding:18px;background:#7a8c78;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:white;cursor:pointer;">Check me in</button>`}
       </div>`;
 
     window.goBack = () => renderSearch(guestName);
@@ -1673,11 +1744,12 @@ function runTest() {
   }
 
   // ── SCREEN 2: Success ────────────────────────────────────────────────────────
-  function doCheckin() {
+  async function doCheckin() {
     const { name: guestName, table: tableId } = resolvedGuest;
     const btn = document.getElementById('checkinBtn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Checking in…'; btn.style.opacity = '0.7'; }
-    arrivedGuests.add(tableId + '|' + guestName);
+    if (btn) { btn.disabled=true; btn.textContent='Checking in…'; btn.style.opacity='0.7'; }
+    await fbSetCheckin(guestName, true);
+    arrivedGuests.add(tableId+'|'+guestName);
     setTimeout(() => renderSuccess(guestName, tableId), 600);
   }
 
@@ -1710,9 +1782,9 @@ function runTest() {
 
   // ── SCREEN 3: Table view ─────────────────────────────────────────────────────
   function showTableView(guestName, tableId) {
-    const tbl = tables.find(t => t.id === tableId);
-    const tablemates = guestData.filter(g => g.table === tableId && g.name !== guestName);
-    const isVip = tableId === 'VIP 1';
+    const tbl = tables.find(t => t.id===tableId);
+    const tablemates = guestData.filter(g => g.table===tableId && g.name!==guestName);
+    const isVip = tableId==='VIP 1';
 
     overlay.innerHTML = `
       <div style="width:100%;max-width:420px;padding:0 20px;">
@@ -1720,7 +1792,6 @@ function runTest() {
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#2c2c2c;">Your Table</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#7a7a7a;font-style:italic;">Table ${tableId}</div>
         </div>
-
         <div style="background:white;border:1px solid #e8e4de;border-radius:16px;overflow:hidden;margin-bottom:16px;padding:12px;">
           <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#7a7a7a;margin-bottom:8px;text-align:center;">Grand Ballroom</div>
           <svg viewBox="0 0 580 860" width="100%" style="display:block;border-radius:8px;background:#f5f3f0;">
@@ -1728,21 +1799,20 @@ function runTest() {
             <rect x="190" y="100" width="200" height="36" rx="4" fill="#d4cfc8" stroke="#b0aa9f" stroke-width="1"/>
             <text x="290" y="122" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#6a6560">STAGE</text>
             ${tables.map(t => {
-              const hi = t.id === tableId;
-              const fill = hi ? '#7a8c78' : (t.type === 'vip' ? '#e8b84b' : '#4db8a0');
-              return `<circle cx="${t.cx}" cy="${t.cy}" r="${hi ? 28 : 20}" fill="${fill}" opacity="${hi ? 1 : 0.3}"/>
-                <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi ? 13 : 10}" font-weight="500" fill="white">${t.id === 'VIP 1' ? 'VIP' : t.id}</text>`;
+              const hi = t.id===tableId;
+              const fill = hi?'#7a8c78':(t.type==='vip'?'#e8b84b':'#4db8a0');
+              return `<circle cx="${t.cx}" cy="${t.cy}" r="${hi?28:20}" fill="${fill}" opacity="${hi?1:0.3}"/>
+                <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi?13:10}" font-weight="500" fill="white">${t.id==='VIP 1'?'VIP':t.id}</text>`;
             }).join('')}
-            ${tbl ? `<circle cx="${tbl.cx}" cy="${tbl.cy}" r="38" fill="none" stroke="#7a8c78" stroke-width="2">
+            ${tbl?`<circle cx="${tbl.cx}" cy="${tbl.cy}" r="38" fill="none" stroke="#7a8c78" stroke-width="2">
               <animate attributeName="r" values="32;46;32" dur="2s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
-            </circle>` : ''}
+            </circle>`:''}
           </svg>
         </div>
-
         <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:20px;margin-bottom:16px;">
           <div style="display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #f5f3f0;margin-bottom:14px;">
-            <div style="width:40px;height:40px;border-radius:50%;background:${isVip ? '#e8d5b0' : '#c8d4c6'};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:${isVip ? '#b8935a' : '#7a8c78'};flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:${isVip?'#e8d5b0':'#c8d4c6'};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:${isVip?'#b8935a':'#7a8c78'};flex-shrink:0;">
               ${guestName.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')}
             </div>
             <div>
@@ -1751,21 +1821,19 @@ function runTest() {
             </div>
           </div>
           <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px;">Tablemates</div>
-          ${tablemates.map(t => `
+          ${tablemates.map(t=>`
             <div style="display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid #f5f3f0;">
               <div style="width:26px;height:26px;border-radius:50%;background:#eef2ed;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#7a8c78;flex-shrink:0;">${t.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')}</div>
               <div style="font-size:13px;color:#2c2c2c;">${t.name}</div>
             </div>`).join('')}
         </div>
 
-        <!-- Deregister -->
         <div id="deregisterSection" style="margin-bottom:16px;">
           <button onclick="expandDeregister()" style="width:100%;padding:13px 16px;background:#fdf5f4;border:1.5px solid #f5c0b8;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#c0392b;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><circle cx="8" cy="8" r="7" stroke="#c0392b" stroke-width="1.5"/><path d="M8 5v3.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.75" fill="#c0392b"/></svg>
             Checked in by mistake?
           </button>
         </div>
-
         <div style="text-align:center;font-size:12px;color:#aaa;padding-bottom:32px;">Enjoy the celebration 🎊</div>
       </div>`;
 
@@ -1775,25 +1843,26 @@ function runTest() {
         <div style="border:1.5px solid #f5c0b8;border-radius:12px;overflow:hidden;">
           <div style="background:#fdf5f4;padding:14px 16px;border-bottom:1px solid #f5c0b8;">
             <div style="font-size:13px;font-weight:500;color:#c0392b;margin-bottom:4px;">Undo check-in for ${guestName}?</div>
-            <div style="font-size:12px;color:#7a7a7a;line-height:1.5;">This will remove your check-in and bring you back to the name search. Use this only if you checked in using the wrong name.</div>
+            <div style="font-size:12px;color:#7a7a7a;line-height:1.5;">This will remove your check-in and bring you back to the name search.</div>
           </div>
           <div style="display:flex;">
-            <button onclick="expandDeregister=null;document.getElementById('deregisterSection').innerHTML='<button onclick=\\'expandDeregister()\\' style=\\'width:100%;padding:12px;background:none;border:1px solid #e8e4de;border-radius:12px;font-family:DM Sans,sans-serif;font-size:13px;color:#aaa;cursor:pointer;\\'>Checked in by mistake?</button>';" style="flex:1;padding:12px;background:white;border:none;border-right:1px solid #f5c0b8;font-family:'DM Sans',sans-serif;font-size:13px;color:#7a7a7a;cursor:pointer;">Cancel</button>
+            <button onclick="expandDeregister()" style="flex:1;padding:12px;background:white;border:none;border-right:1px solid #f5c0b8;font-family:'DM Sans',sans-serif;font-size:13px;color:#7a7a7a;cursor:pointer;">Cancel</button>
             <button onclick="doDeregister('${guestName.replace(/'/g,"\\'")}','${tableId.replace(/'/g,"\\'")}')" style="flex:1;padding:12px;background:#e74c3c;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:white;cursor:pointer;">Yes, undo check-in</button>
           </div>
         </div>`;
     };
 
-    window.doDeregister = function(name, table) {
-      arrivedGuests.delete(table + '|' + name);
+    window.doDeregister = async function(name, table) {
+      await fbSetCheckin(name, false);
+      arrivedGuests.delete(table+'|'+name);
       resolvedGuest = null;
       renderSearch(name);
     };
   }
 
-  // Boot
-  renderSearch();
-})();
+  // Boot — show PIN screen first
+  renderPin();
+}
 </script>
 </body>
 </html>
