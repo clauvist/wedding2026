@@ -1123,9 +1123,10 @@ function makeGuestItem(g) {
       pendingCheckins.delete(k);
       await fbSetCheckin(guestName, true);
     }
+    // arrivedGuests and UI updated by onValue listener
+    // updateTableRatio and updateActionBar need local state so call immediately
     if (selectedTable === g.table) updateTableRatio(g.table);
     updateActionBar();
-    // renderGuests is triggered by the onValue listener
   });
 
   return item;
@@ -1219,17 +1220,18 @@ async function confirmCheckin() {
   const mixed        = checkedIn.length > 0 && notCheckedIn.length > 0;
   if (mixed) return;
 
-  const updates = {};
   if (checkedIn.length > 0 && notCheckedIn.length === 0) {
-    checkedIn.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = false; });
+    // De-register all selected — write false to Firebase for each
+    await fbSetCheckinMulti(checkedIn, false);
   } else {
-    notCheckedIn.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = true; });
+    // Check in all selected — write true to Firebase for each
+    await fbSetCheckinMulti(notCheckedIn, true);
   }
-  await update(ref(db), updates);
 
+  // arrivedGuests is updated automatically by the onValue listener
   pendingCheckins.clear();
   updateActionBar();
-  // renderGuests triggered by onValue listener
+  // renderGuests is triggered by onValue after Firebase confirms the write
 
   const list = document.getElementById('guestList');
   const flash = document.createElement('div');
@@ -1346,14 +1348,21 @@ scaleBallroom();
 window.addEventListener('resize', scaleBallroom);
 
 // ─── TEST HARNESS ────────────────────────────────────────────────────────────
-function runTest() {
+async function runTest() {
   // 1. Pick 100 random guests
   const shuffled = [...guestData].sort(() => Math.random() - 0.5);
   const chosen100 = shuffled.slice(0, 100);
 
-  // 2. Check them all in
-  arrivedGuests.clear();
-  chosen100.forEach(g => arrivedGuests.add(g.table + '|' + g.name));
+  // 2. Check them all in via Firebase (onValue listener will update arrivedGuests)
+  const updates = {};
+  // First clear all checkins
+  await set(ref(db, 'checkins'), null);
+  // Then set chosen 100
+  chosen100.forEach(g => { updates[`checkins/${toKey(g.name)}`] = true; });
+  await update(ref(db), updates);
+
+  // Wait briefly for onValue to propagate before running assertions
+  await new Promise(resolve => setTimeout(resolve, 600));
 
   // Reset UI
   selectedTable = null;
@@ -1450,13 +1459,16 @@ function runTest() {
   document.getElementById('searchInput').value = toggleGuest.name;
   filterGuests();
   const beforeToggle = document.querySelectorAll('#guestList .checkin-cell.arrived').length;
+  // Write false to Firebase and update local Set to match
+  await fbSetCheckin(toggleGuest.name, false);
   arrivedGuests.delete(toggleKey);
   renderGuests();
   const afterToggle = document.querySelectorAll('#guestList .checkin-cell.arrived').length;
   const t9Pass = beforeToggle === 1 && afterToggle === 0;
   results.push({ label: 'Toggle: unchecking "' + toggleGuest.name + '" removes tick', pass: t9Pass, detail: 'Ticks before: ' + beforeToggle + ', after: ' + afterToggle });
   if (!t9Pass) allPassed = false;
-  // Restore for clean state
+  // Restore
+  await fbSetCheckin(toggleGuest.name, true);
   arrivedGuests.add(toggleKey);
 
   // TEST 10: Table filter shows section subtitle with check-in count
@@ -1532,7 +1544,11 @@ function runTest() {
   const btn = document.createElement('button');
   btn.className = 'btn';
   btn.textContent = 'Run test';
-  btn.onclick = runTest;
+  btn.onclick = async () => {
+    btn.disabled = true;
+    btn.textContent = 'Running…';
+    try { await runTest(); } finally { btn.disabled = false; btn.textContent = 'Run test'; }
+  };
   actions.insertBefore(btn, actions.firstChild);
 })();
 
@@ -1749,6 +1765,8 @@ if (isCheckinMode) {
     const btn = document.getElementById('checkinBtn');
     if (btn) { btn.disabled=true; btn.textContent='Checking in…'; btn.style.opacity='0.7'; }
     await fbSetCheckin(guestName, true);
+    // arrivedGuests is updated by the onValue listener in bootAdmin (admin mode only).
+    // In guest mode there is no listener, so update locally so alreadyIn checks work correctly.
     arrivedGuests.add(tableId+'|'+guestName);
     setTimeout(() => renderSuccess(guestName, tableId), 600);
   }
@@ -1854,6 +1872,7 @@ if (isCheckinMode) {
 
     window.doDeregister = async function(name, table) {
       await fbSetCheckin(name, false);
+      // Update locally so renderSearch reflects the deregistered state immediately (no onValue in guest mode)
       arrivedGuests.delete(table+'|'+name);
       resolvedGuest = null;
       renderSearch(name);
