@@ -399,7 +399,32 @@
   .search-box {
     padding: 10px 16px;
     border-bottom: 1px solid #f0ede8;
+    position: relative;
   }
+
+  .admin-autocomplete {
+    position: absolute;
+    left: 16px; right: 16px;
+    top: calc(100% - 2px);
+    background: white;
+    border: 1px solid #e0dbd4;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 50;
+    overflow: hidden;
+  }
+  .admin-autocomplete-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid #f5f3f0;
+  }
+  .admin-autocomplete-item:last-child { border-bottom: none; }
+  .admin-autocomplete-item:hover { background: var(--sage-pale); }
 
   .search-box input {
     width: 100%;
@@ -633,6 +658,7 @@
     <div id="mixedAlert" style="display:none;padding:10px 16px;background:#f5f3f0;border-bottom:1px solid #e8e4de;font-size:12px;color:#5f5e5a;line-height:1.6;"></div>
     <div class="search-box">
       <input type="text" id="searchInput" placeholder='Search name or "table 1"…' oninput="filterGuests()">
+      <div id="adminAutocomplete" class="admin-autocomplete" style="display:none;"></div>
     </div>
     <div style="display:flex;align-items:center;padding:5px 20px 5px;border-bottom:1px solid #f0ede8;background:#faf9f7;">
       <div style="width:18px;flex-shrink:0;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">Sel</div>
@@ -841,6 +867,11 @@ async function bootAdmin() {
   renderGuests();
   scaleBallroom();
   window.addEventListener('resize', scaleBallroom);
+
+  // Hide autocomplete when search input loses focus
+  document.getElementById('searchInput').addEventListener('blur', () => {
+    document.getElementById('adminAutocomplete').style.display = 'none';
+  });
 }
 
 // ─── GUEST DATA (kept for backward compat with functions that reference it) ────
@@ -971,10 +1002,12 @@ function filterGuests() {
   const q = document.getElementById('searchInput').value.trim();
   const title = document.getElementById('sidebarTitle');
   const sub = document.getElementById('sidebarSub');
+  const autocomplete = document.getElementById('adminAutocomplete');
 
   // Detect "table X" or "table VIP 1" pattern
   const tableMatch = q.match(/^table\s+(.+)$/i);
   if (tableMatch) {
+    autocomplete.style.display = 'none';
     const tq = tableMatch[1].trim().toUpperCase();
     const allIds = [...new Set(guestData.map(g => g.table))];
     const matchedId = allIds.find(id => id.toUpperCase() === tq || id.toUpperCase() === tq.replace('VIP1','VIP 1'));
@@ -992,11 +1025,28 @@ function filterGuests() {
       title.textContent = 'No table found';
       sub.textContent = `"${q}"`;
     }
-  } else if (q) {
+  } else if (q.length >= 2) {
     const matches = guestData.filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
     title.textContent = 'Search results';
     sub.textContent = `${matches.length} guest${matches.length !== 1 ? 's' : ''} found`;
+    const suggestions = matches.slice(0, 6);
+    if (suggestions.length > 0) {
+      autocomplete.innerHTML = suggestions.map(g => {
+        const isVip = g.table === 'VIP 1';
+        const initials = g.name.split(' ').filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join('');
+        const safeName = g.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        return `<div class="admin-autocomplete-item" onmousedown="selectAdminGuest('${safeName}')">
+          <div style="width:26px;height:26px;border-radius:50%;background:${isVip?'var(--gold-light)':'var(--sage-light)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:${isVip?'var(--gold)':'var(--sage)'};">${initials}</div>
+          <div style="flex:1;font-size:13px;color:var(--charcoal);">${g.name}</div>
+          <div style="font-size:11px;color:var(--muted);">T${g.table}</div>
+        </div>`;
+      }).join('');
+      autocomplete.style.display = 'block';
+    } else {
+      autocomplete.style.display = 'none';
+    }
   } else {
+    autocomplete.style.display = 'none';
     title.textContent = 'All Guests';
     sub.textContent = 'Click a table to filter';
   }
@@ -1016,7 +1066,7 @@ function renderGuests() {
     const allIds = [...new Set(guestData.map(g => g.table))];
     const matchedId = allIds.find(id => id.toUpperCase() === tq);
     toShow = matchedId ? guestData.filter(g => g.table === matchedId) : [];
-  } else if (q) {
+  } else if (q.length >= 2) {
     toShow = guestData.filter(g => g.name.toLowerCase().includes(q));
   }
 
@@ -1220,7 +1270,7 @@ async function confirmCheckin() {
   // arrivedGuests is updated automatically by the onValue listener
   pendingCheckins.clear();
   updateActionBar();
-  // renderGuests is triggered by onValue after Firebase confirms the write
+  renderGuests();
 
   const list = document.getElementById('guestList');
   const flash = document.createElement('div');
@@ -1540,13 +1590,18 @@ async function runTest() {
 
 // Expose admin functions called from inline HTML event handlers (module scope
 // does not reach window, so onclick="fn()" would throw ReferenceError otherwise)
-window.toggleMissing  = toggleMissing;
-window.showQRPanel    = showQRPanel;
-window.resetAll       = resetAll;
-window.exportData     = exportData;
-window.confirmCheckin = confirmCheckin;
-window.clearPending   = clearPending;
-window.filterGuests   = filterGuests;
+window.toggleMissing    = toggleMissing;
+window.showQRPanel      = showQRPanel;
+window.resetAll         = resetAll;
+window.exportData       = exportData;
+window.confirmCheckin   = confirmCheckin;
+window.clearPending     = clearPending;
+window.filterGuests     = filterGuests;
+window.selectAdminGuest = (name) => {
+  document.getElementById('searchInput').value = name;
+  document.getElementById('adminAutocomplete').style.display = 'none';
+  filterGuests();
+};
 
 // ─── GUEST CHECK-IN MODE ─────────────────────────────────────────────────────
 if (isCheckinMode) {
@@ -1678,9 +1733,16 @@ if (isCheckinMode) {
     setTimeout(() => { input.setSelectionRange(input.value.length, input.value.length); }, 0);
 
     window.handleInput = () => {
-      document.getElementById('matchList').style.display = 'none';
+      const q = input.value.trim();
       document.getElementById('noMatchMsg').style.display = 'none';
       input.style.borderColor = '#e0dbd4';
+      if (q.length >= 2) {
+        const matches = findMatches(q);
+        if (matches.length > 0) showMatchList(matches);
+        else document.getElementById('matchList').style.display = 'none';
+      } else {
+        document.getElementById('matchList').style.display = 'none';
+      }
     };
 
     window.handleSearch = () => {
