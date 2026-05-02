@@ -1,0 +1,10 @@
+{
+  "name": "wedding2026",
+  "private": true,
+  "scripts": {
+    "generate-config": "node generate-config.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  }
+}
