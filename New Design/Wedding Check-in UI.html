@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Check-in UI — Tristan & Regina</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="ext-resource-dependency" content="design-canvas.jsx" data-resource-id="designCanvas" />
+<meta name="ext-resource-dependency" content="ios-frame.jsx" data-resource-id="iosFrame" />
+<meta name="ext-resource-dependency" content="components/mock-data.jsx" data-resource-id="mockData" />
+<meta name="ext-resource-dependency" content="components/admin-desktop.jsx" data-resource-id="adminDesktop" />
+<meta name="ext-resource-dependency" content="components/admin-mobile.jsx" data-resource-id="adminMobile" />
+<meta name="ext-resource-dependency" content="components/guest-checkin.jsx" data-resource-id="guestCheckin" />
+
+<template id="__bundler_thumbnail" data-bg-color="#faf8f4">
+  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="300" fill="#faf8f4"/>
+    <!-- Two phone frames -->
+    <rect x="60" y="40" width="80" height="140" rx="10" fill="white" stroke="#e8e4de" stroke-width="2"/>
+    <rect x="70" y="55" width="60" height="90" rx="4" fill="#eef2ed"/>
+    <rect x="75" y="60" width="50" height="8" rx="3" fill="#c8d4c6"/>
+    <rect x="75" y="73" width="50" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="75" y="83" width="35" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="75" y="100" width="50" height="6" rx="3" fill="#c8d4c6"/>
+    <rect x="75" y="110" width="50" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="75" y="120" width="35" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="70" y="155" width="60" height="16" rx="6" fill="#7a8c78"/>
+    <!-- Desktop frame -->
+    <rect x="165" y="30" width="175" height="120" rx="8" fill="white" stroke="#e8e4de" stroke-width="2"/>
+    <rect x="165" y="30" width="175" height="22" rx="8" fill="#f0ede8"/>
+    <rect x="175" y="38" width="60" height="6" rx="3" fill="#c8d4c6"/>
+    <rect x="280" y="36" width="30" height="10" rx="4" fill="#7a8c78"/>
+    <rect x="165" y="52" width="110" height="98" rx="0" fill="#f5f3f0"/>
+    <!-- Tables on floor plan -->
+    <circle cx="195" cy="80" r="10" fill="#4db8a0" opacity="0.7"/>
+    <circle cx="225" cy="80" r="10" fill="#e8b84b" opacity="0.7"/>
+    <circle cx="255" cy="80" r="10" fill="#4db8a0" opacity="0.7"/>
+    <circle cx="195" cy="110" r="10" fill="#4db8a0" opacity="0.7"/>
+    <circle cx="225" cy="110" r="10" fill="#4db8a0" opacity="0.7"/>
+    <circle cx="255" cy="110" r="10" fill="#4db8a0" opacity="0.7"/>
+    <!-- Sidebar -->
+    <rect x="275" y="52" width="65" height="98" fill="white"/>
+    <rect x="280" y="60" width="50" height="6" rx="3" fill="#c8d4c6"/>
+    <rect x="280" y="70" width="50" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="280" y="80" width="35" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="280" y="95" width="50" height="6" rx="3" fill="#c8d4c6"/>
+    <rect x="280" y="105" width="50" height="6" rx="3" fill="#e0dbd4"/>
+    <rect x="280" y="115" width="35" height="6" rx="3" fill="#e0dbd4"/>
+    <!-- Second phone -->
+    <rect x="165" y="165" width="80" height="100" rx="10" fill="white" stroke="#e8e4de" stroke-width="2"/>
+    <rect x="175" y="178" width="60" height="50" rx="4" fill="#f0ede8"/>
+    <circle cx="205" cy="203" r="16" fill="#7a8c78" opacity="0.9"/>
+    <rect x="175" y="233" width="60" height="12" rx="4" fill="#7a8c78"/>
+    <!-- Title text -->
+    <text x="200" y="285" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#b8935a" letter-spacing="2">TRISTAN &amp; REGINA</text>
+  </svg>
+</template>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #1a1a1a; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design-canvas.jsx" data-resource-id="designCanvas"></script>
+<script type="text/babel" src="ios-frame.jsx" data-resource-id="iosFrame"></script>
+<script type="text/babel" src="components/mock-data.jsx" data-resource-id="mockData"></script>
+<script type="text/babel" src="components/admin-desktop.jsx" data-resource-id="adminDesktop"></script>
+<script type="text/babel" src="components/admin-mobile.jsx" data-resource-id="adminMobile"></script>
+<script type="text/babel" src="components/guest-checkin.jsx" data-resource-id="guestCheckin"></script>
+<script type="text/babel">
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#7a8c78",
+  "goldColor": "#b8935a",
+  "fontSerif": "Cormorant Garamond",
+  "fontSans": "DM Sans",
+  "showVIPBadge": true,
+  "denseList": false
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweakState] = React.useState(TWEAK_DEFAULTS);
+  const setTweak = (key, val) => {
+    const next = typeof key === 'object' ? {...tweaks,...key} : {...tweaks,[key]:val};
+    setTweakState(next);
+    window.parent?.postMessage({type:'__edit_mode_set_keys', edits: next},'*');
+  };
+  const [showTweaks, setShowTweaks] = React.useState(false);
+
+  React.useEffect(() => {
+    window.addEventListener('message', e => {
+      if (e.data?.type === '__activate_edit_mode') setShowTweaks(true);
+      if (e.data?.type === '__deactivate_edit_mode') setShowTweaks(false);
+    });
+    window.parent?.postMessage({type:'__edit_mode_available'},'*');
+  }, []);
+
+  return (
+    <DesignCanvas>
+
+      {/* ── Row 1: Admin Desktop ── */}
+      <DCSection id="admin-desktop" title="Admin — Desktop">
+        <DCArtboard id="admin-desktop-full" label="Full dashboard" width={1280} height={800}>
+          <AdminDesktop tweaks={tweaks} />
+        </DCArtboard>
+      </DCSection>
+
+      {/* ── Row 2: Admin Mobile ── */}
+      <DCSection id="admin-mobile" title="Admin — Mobile">
+        <DCArtboard id="admin-mobile-overview" label="Overview tab" width={390} height={844}>
+          <AdminMobile tweaks={tweaks} initialTab="overview" />
+        </DCArtboard>
+        <DCArtboard id="admin-mobile-guests" label="Guest list tab" width={390} height={844}>
+          <AdminMobile tweaks={tweaks} initialTab="guests" />
+        </DCArtboard>
+        <DCArtboard id="admin-mobile-search" label="Search active" width={390} height={844}>
+          <AdminMobile tweaks={tweaks} initialTab="guests" initialSearch="Chen" />
+        </DCArtboard>
+        <DCArtboard id="admin-mobile-qr" label="QR Code tab" width={390} height={844}>
+          <AdminMobile tweaks={tweaks} initialTab="qr" />
+        </DCArtboard>
+      </DCSection>
+
+      {/* ── Row 3: Guest Self Check-in ── */}
+      <DCSection id="guest-checkin" title="Guest Self Check-in — Mobile">
+        <DCArtboard id="guest-pin" label="1 · PIN entry" width={390} height={844}>
+          <GuestCheckin tweaks={tweaks} screen="pin" />
+        </DCArtboard>
+        <DCArtboard id="guest-search" label="2 · Name search" width={390} height={844}>
+          <GuestCheckin tweaks={tweaks} screen="search" />
+        </DCArtboard>
+        <DCArtboard id="guest-matches" label="3 · Confirm identity" width={390} height={844}>
+          <GuestCheckin tweaks={tweaks} screen="confirm" />
+        </DCArtboard>
+        <DCArtboard id="guest-success" label="4 · Checked in!" width={390} height={844}>
+          <GuestCheckin tweaks={tweaks} screen="success" />
+        </DCArtboard>
+        <DCArtboard id="guest-table" label="5 · Table view" width={390} height={844}>
+          <GuestCheckin tweaks={tweaks} screen="table" />
+        </DCArtboard>
+      </DCSection>
+
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
