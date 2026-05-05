@@ -509,6 +509,145 @@
     border-color: var(--charcoal);
   }
   .btn.active:hover { background: #444; }
+
+  /* ─── MOBILE ADMIN ──────────────────────────────────────────────────────── */
+  #mobile-admin {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    background: var(--cream); z-index: 1000; overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .mob-header {
+    background: white; border-bottom: 1px solid #e8e4de;
+    padding: 14px 20px 12px; flex-shrink: 0;
+  }
+  .mob-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .mob-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--charcoal); }
+  .mob-brand span { color: var(--gold); font-style: italic; }
+  .mob-signout { font-size: 12px; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .mob-progress-bar { height: 4px; background: #e8e4de; border-radius: 2px; overflow: hidden; }
+  .mob-progress-fill { height: 100%; background: var(--sage); border-radius: 2px; transition: width 0.4s; }
+  .mob-stat-line { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .mob-stat-line strong { color: var(--charcoal); }
+
+  .mob-tab-bar {
+    display: flex; background: white; border-bottom: 1px solid #e8e4de; flex-shrink: 0;
+  }
+  .mob-tab {
+    flex: 1; padding: 10px 4px; font-size: 12px; font-weight: 500;
+    text-align: center; cursor: pointer; border-bottom: 2px solid transparent;
+    color: var(--muted); background: none; border-top: none; border-left: none; border-right: none;
+    font-family: 'DM Sans', sans-serif; transition: color 0.15s;
+  }
+  .mob-tab.active { color: var(--sage); border-bottom-color: var(--sage); }
+
+  .mob-content { flex: 1; overflow-y: auto; }
+
+  /* Stat cards */
+  .mob-stat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px; }
+  .mob-stat-card { background: white; border: 1px solid #e8e4de; border-radius: 12px; padding: 14px 12px; text-align: center; }
+  .mob-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--charcoal); line-height: 1; }
+  .mob-stat-label { font-size: 10px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em; }
+
+  /* Table grid */
+  .mob-table-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 16px 16px; }
+  .mob-table-cell {
+    background: white; border: 1px solid #e8e4de; border-radius: 10px;
+    padding: 10px 6px; text-align: center; cursor: pointer; transition: background 0.15s;
+  }
+  .mob-table-cell:active { background: var(--sage-pale); }
+  .mob-table-cell-id { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--charcoal); }
+  .mob-table-cell-ratio { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .mob-table-cell.vip { border-color: var(--gold-light); background: #fffdf7; }
+  .mob-table-cell.full { background: var(--sage-pale); border-color: var(--sage-light); }
+
+  /* Mobile quick actions */
+  .mob-actions { display: flex; gap: 10px; padding: 0 16px 20px; }
+  .mob-action-btn {
+    flex: 1; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; border: 1.5px solid #e0dbd4;
+    background: white; color: var(--charcoal);
+  }
+  .mob-action-btn.primary { background: var(--sage); color: white; border-color: var(--sage); }
+
+  /* Mobile guest rows */
+  .mob-search-bar { padding: 12px 16px; position: relative; }
+  .mob-search-bar input {
+    width: 100%; padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; border: 1.5px solid #e0dbd4; border-radius: 10px;
+    background: white; color: var(--charcoal); outline: none;
+  }
+  .mob-search-bar input:focus { border-color: var(--sage); }
+  .mob-filter-chips { display: flex; gap: 8px; padding: 0 16px 12px; overflow-x: auto; }
+  .mob-filter-chip {
+    padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 1.5px solid #e0dbd4; background: white; color: var(--muted);
+    cursor: pointer; white-space: nowrap; font-family: 'DM Sans', sans-serif;
+  }
+  .mob-filter-chip.active { background: var(--sage); color: white; border-color: var(--sage); }
+
+  .mob-guest-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid #f0ede8; background: white;
+  }
+  .mob-guest-row:active { background: var(--sage-pale); }
+  .mob-guest-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--sage-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; color: var(--sage); flex-shrink: 0;
+  }
+  .mob-guest-avatar.vip { background: var(--gold-light); color: var(--gold); }
+  .mob-guest-info { flex: 1; }
+  .mob-guest-name { font-size: 14px; color: var(--charcoal); font-weight: 500; }
+  .mob-guest-table { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .mob-guest-check {
+    width: 34px; height: 34px; border-radius: 50%; border: 2px solid #e0dbd4;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    background: white; transition: all 0.15s; flex-shrink: 0;
+  }
+  .mob-guest-check.arrived { background: var(--sage); border-color: var(--sage); }
+  .mob-guest-select {
+    width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid #d0cbc4;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; background: white; flex-shrink: 0;
+  }
+  .mob-guest-select.pending { background: var(--sage); border-color: var(--sage); }
+  .mob-guest-select.pending-arrived { background: #c0392b; border-color: #c0392b; }
+
+  .mob-action-bar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--sage); padding: 12px 16px;
+    align-items: center; gap: 10px; z-index: 200;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+  }
+  .mob-action-bar.visible { display: flex; }
+  .mob-action-bar.deregister { background: #c0392b; }
+  .mob-action-label { flex: 1; font-size: 14px; font-weight: 500; color: white; }
+  .mob-action-cancel { font-size: 13px; color: rgba(255,255,255,0.8); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .mob-action-confirm { padding: 8px 18px; background: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--sage); cursor: pointer; }
+
+  /* QR tab */
+  .mob-qr-section { padding: 20px 16px; }
+  .mob-qr-card { background: white; border: 1px solid #e8e4de; border-radius: 16px; overflow: hidden; }
+  .mob-qr-body { padding: 20px; text-align: center; }
+
+  /* Numpad PIN */
+  .pin-boxes { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+  .pin-box {
+    width: 60px; height: 70px; border-radius: 12px; border: 1.5px solid #e0dbd4;
+    background: #faf8f4; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--charcoal); transition: border-color 0.15s, background 0.15s;
+  }
+  .pin-box.filled { border-color: var(--sage); background: var(--sage-pale); }
+  .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 240px; margin: 0 auto; }
+  .numpad-key {
+    padding: 16px; border-radius: 12px; border: 1.5px solid #e0dbd4; background: white;
+    font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 400;
+    color: var(--charcoal); cursor: pointer; transition: background 0.1s; text-align: center;
+  }
+  .numpad-key:active { background: var(--sage-pale); }
+  .numpad-key.backspace { font-size: 16px; color: var(--muted); }
+  .numpad-key.empty { border-color: transparent; background: transparent; cursor: default; }
 </style>
 </head>
 <body>
@@ -723,6 +862,12 @@ let arrivedGuests = new Set();    // synced from Firebase in real time
 let selectedTable   = null;
 let showMissingOnly = false;
 let pendingCheckins = new Set();
+let isMobile = window.matchMedia('(max-width: 768px)').matches;
+// Mobile admin state
+let currentTab = 'overview';
+let mobilePending = new Set();
+let mobileSearch = '';
+let mobileFilter = 'all'; // 'all' | 'missing' | tableId
 
 // ─── FIREBASE KEY HELPERS ─────────────────────────────────────────────────────
 // Firebase keys can't contain . # $ [ ] — encode guest names for use as keys
@@ -819,6 +964,11 @@ if (isCheckinMode) {
 
 // ─── ADMIN BOOT ───────────────────────────────────────────────────────────────
 async function bootAdmin() {
+  if (isMobile) {
+    await bootMobileAdmin();
+    return;
+  }
+
   document.querySelector('header').style.display = '';
   document.querySelector('.layout').style.display = '';
 
@@ -851,13 +1001,11 @@ async function bootAdmin() {
       Object.entries(snap.val()).forEach(([key, val]) => {
         if (val === true) {
           const name = fromKey(key);
-          // Find this guest's table
           const g = guestData.find(g => g.name === name);
           if (g) arrivedGuests.add(g.table + '|' + g.name);
         }
       });
     }
-    // Refresh UI
     renderGuests();
     updateStats();
     if (selectedTable) updateTableRatio(selectedTable);
@@ -868,7 +1016,6 @@ async function bootAdmin() {
   scaleBallroom();
   window.addEventListener('resize', scaleBallroom);
 
-  // Hide autocomplete when search input loses focus
   document.getElementById('searchInput').addEventListener('blur', () => {
     document.getElementById('adminAutocomplete').style.display = 'none';
   });
@@ -1603,6 +1750,389 @@ window.selectAdminGuest = (name) => {
   filterGuests();
 };
 
+// ─── MOBILE ADMIN ────────────────────────────────────────────────────────────
+async function bootMobileAdmin() {
+  // Initial guest load
+  const guestSnap = await get(ref(db, 'guests'));
+  if (guestSnap.exists()) {
+    guestData = Object.values(guestSnap.val());
+    guestsByTable = {};
+    guestData.forEach(g => {
+      if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
+      guestsByTable[g.table].push(g);
+    });
+  }
+
+  onValue(ref(db, 'checkins'), snap => {
+    arrivedGuests = new Set();
+    if (snap.exists()) {
+      Object.entries(snap.val()).forEach(([key, val]) => {
+        if (val === true) {
+          const name = fromKey(key);
+          const g = guestData.find(g => g.name === name);
+          if (g) arrivedGuests.add(g.table + '|' + g.name);
+        }
+      });
+    }
+    renderMobileContent();
+  });
+
+  // Create shell
+  const shell = document.createElement('div');
+  shell.id = 'mobile-admin';
+  document.body.appendChild(shell);
+  renderMobileShell();
+}
+
+function renderMobileShell() {
+  const shell = document.getElementById('mobile-admin');
+  if (!shell) return;
+  const total = guestData.length;
+  const arrived = arrivedGuests.size;
+  const pct = total > 0 ? Math.round((arrived / total) * 100) : 0;
+
+  shell.innerHTML = `
+    <div class="mob-header">
+      <div class="mob-header-top">
+        <div class="mob-brand">Tristan <span>&</span> Regina</div>
+        <button class="mob-signout" onclick="signOut(auth)">Sign out</button>
+      </div>
+      <div class="mob-progress-bar"><div class="mob-progress-fill" style="width:${pct}%"></div></div>
+      <div class="mob-stat-line"><strong>${arrived}</strong> / ${total} guests checked in</div>
+    </div>
+    <div class="mob-tab-bar">
+      <button class="mob-tab ${currentTab==='overview'?'active':''}" onclick="mobSetTab('overview')">Overview</button>
+      <button class="mob-tab ${currentTab==='guests'?'active':''}" onclick="mobSetTab('guests')">Guests</button>
+      <button class="mob-tab ${currentTab==='qr'?'active':''}" onclick="mobSetTab('qr')">QR Code</button>
+    </div>
+    <div class="mob-content" id="mob-content"></div>
+    <div class="mob-action-bar" id="mob-action-bar">
+      <div class="mob-action-label" id="mob-action-label"></div>
+      <button class="mob-action-cancel" onclick="mobClearPending()">Cancel</button>
+      <button class="mob-action-confirm" id="mob-action-confirm" onclick="mobConfirmCheckin()">Check in</button>
+    </div>`;
+
+  renderMobileContent();
+}
+
+function renderMobileContent() {
+  // Refresh header stats
+  const shell = document.getElementById('mobile-admin');
+  if (!shell) return;
+  const total = guestData.length;
+  const arrived = arrivedGuests.size;
+  const pct = total > 0 ? Math.round((arrived / total) * 100) : 0;
+  const fill = shell.querySelector('.mob-progress-fill');
+  if (fill) fill.style.width = pct + '%';
+  const statLine = shell.querySelector('.mob-stat-line');
+  if (statLine) statLine.innerHTML = `<strong>${arrived}</strong> / ${total} guests checked in`;
+
+  if (currentTab === 'overview') renderMobileOverview();
+  else if (currentTab === 'guests') renderMobileGuests();
+  else renderMobileQR();
+}
+
+function mobSetTab(tab) {
+  currentTab = tab;
+  // Update tab buttons
+  document.querySelectorAll('.mob-tab').forEach(el => {
+    el.classList.toggle('active', el.textContent.toLowerCase().replace(' ','') === tab);
+  });
+  // Fix: match by onclick attr
+  document.querySelectorAll('.mob-tab').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.mob-tab').forEach(el => {
+    if (el.getAttribute('onclick') === `mobSetTab('${tab}')`) el.classList.add('active');
+  });
+  renderMobileContent();
+}
+
+function renderMobileOverview() {
+  const content = document.getElementById('mob-content');
+  if (!content) return;
+  const total = guestData.length;
+  const arrived = arrivedGuests.size;
+  const missing = total - arrived;
+
+  // Sort tables: VIP first, then numeric
+  const tableIds = [...new Set(guestData.map(g => g.table))].sort((a, b) => {
+    if (a === 'VIP 1') return -1; if (b === 'VIP 1') return 1;
+    return parseInt(a) - parseInt(b);
+  });
+
+  const tableCells = tableIds.map(tid => {
+    const guests = guestsByTable[tid] || [];
+    const arrivedCount = guests.filter(g => arrivedGuests.has(g.table + '|' + g.name)).length;
+    const full = arrivedCount === guests.length && guests.length > 0;
+    const isVip = tid === 'VIP 1';
+    return `<div class="mob-table-cell ${isVip?'vip':''} ${full?'full':''}" onclick="mobGoToTable('${tid.replace(/'/g,"\\'")}')">
+      <div class="mob-table-cell-id">${tid}</div>
+      <div class="mob-table-cell-ratio">${arrivedCount}/${guests.length}</div>
+    </div>`;
+  }).join('');
+
+  content.innerHTML = `
+    <div class="mob-stat-cards">
+      <div class="mob-stat-card">
+        <div class="mob-stat-num">${total}</div>
+        <div class="mob-stat-label">Total</div>
+      </div>
+      <div class="mob-stat-card">
+        <div class="mob-stat-num" style="color:var(--sage)">${arrived}</div>
+        <div class="mob-stat-label">Arrived</div>
+      </div>
+      <div class="mob-stat-card">
+        <div class="mob-stat-num" style="color:var(--gold)">${missing}</div>
+        <div class="mob-stat-label">Missing</div>
+      </div>
+    </div>
+    <div style="padding:0 16px 10px;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">Tables</div>
+    <div class="mob-table-grid">${tableCells}</div>
+    <div class="mob-actions">
+      <button class="mob-action-btn" onclick="exportData()">Export CSV</button>
+      <button class="mob-action-btn" onclick="mobResetAll()">Reset</button>
+    </div>`;
+}
+
+function mobGoToTable(tableId) {
+  mobileFilter = tableId;
+  mobileSearch = '';
+  mobSetTab('guests');
+}
+
+function renderMobileGuests() {
+  const content = document.getElementById('mob-content');
+  if (!content) return;
+
+  let filtered = guestData;
+  if (mobileFilter === 'missing') {
+    filtered = guestData.filter(g => !arrivedGuests.has(g.table + '|' + g.name));
+  } else if (mobileFilter !== 'all') {
+    filtered = guestData.filter(g => g.table === mobileFilter);
+  }
+  if (mobileSearch.length >= 2) {
+    filtered = filtered.filter(g => g.name.toLowerCase().includes(mobileSearch.toLowerCase()));
+  }
+
+  // Sort VIP first, then by table number
+  filtered.sort((a, b) => {
+    if (a.table === 'VIP 1') return -1; if (b.table === 'VIP 1') return 1;
+    const td = parseInt(a.table) - parseInt(b.table);
+    if (td !== 0) return td;
+    return a.name.localeCompare(b.name);
+  });
+
+  // Unique table IDs for filter chips
+  const tableIds = [...new Set(guestData.map(g => g.table))].sort((a,b) => {
+    if (a==='VIP 1') return -1; if (b==='VIP 1') return 1; return parseInt(a)-parseInt(b);
+  });
+
+  const chips = [
+    `<button class="mob-filter-chip ${mobileFilter==='all'?'active':''}" onclick="mobSetFilter('all')">All</button>`,
+    `<button class="mob-filter-chip ${mobileFilter==='missing'?'active':''}" onclick="mobSetFilter('missing')">Missing</button>`,
+    ...tableIds.map(tid => `<button class="mob-filter-chip ${mobileFilter===tid?'active':''}" onclick="mobSetFilter('${tid.replace(/'/g,"\\'")}')">T${tid}</button>`)
+  ].join('');
+
+  const rows = filtered.length === 0
+    ? `<div style="text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;">No guests found</div>`
+    : filtered.map(g => {
+        const key = g.table + '|' + g.name;
+        const isVip = g.table === 'VIP 1';
+        const arrived = arrivedGuests.has(key);
+        const pending = mobilePending.has(key);
+        const initials = g.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+        const selClass = pending ? (arrived ? 'pending-arrived' : 'pending') : '';
+        const checkSvg = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        return `<div class="mob-guest-row">
+          <div class="mob-guest-select ${selClass}" data-mkey="${key}" onclick="mobTogglePending('${key.replace(/'/g,"\\'")}')">
+            ${pending ? `<svg width="12" height="12" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+          </div>
+          <div class="mob-guest-avatar ${isVip?'vip':''}">${initials}</div>
+          <div class="mob-guest-info">
+            <div class="mob-guest-name">${g.name}</div>
+            <div class="mob-guest-table">Table ${g.table}</div>
+          </div>
+          <div class="mob-guest-check ${arrived?'arrived':''}" data-mkey="${key}" onclick="mobDirectCheckin('${key.replace(/'/g,"\\'")}')">
+            ${arrived ? checkSvg : ''}
+          </div>
+        </div>`;
+      }).join('');
+
+  content.innerHTML = `
+    <div class="mob-search-bar">
+      <input type="text" placeholder="Search guests…" value="${mobileSearch}"
+        oninput="mobSearchInput(this.value)">
+    </div>
+    <div class="mob-filter-chips">${chips}</div>
+    ${rows}
+    <div style="height:64px;"></div>`;
+
+  mobUpdateActionBar();
+}
+
+function renderMobileQR() {
+  const content = document.getElementById('mob-content');
+  if (!content) return;
+  const base = window.location.href.split('?')[0];
+  const checkinUrl = `${base}?checkin=1`;
+
+  // Decorative QR SVG (finder patterns + data modules)
+  const qrSvg = `<svg width="160" height="160" viewBox="0 0 160 160" style="display:block;margin:0 auto 16px;">
+    <rect width="160" height="160" fill="white"/>
+    <!-- Top-left finder -->
+    <rect x="8" y="8" width="42" height="42" rx="4" fill="#2c2c2c"/>
+    <rect x="14" y="14" width="30" height="30" rx="2" fill="white"/>
+    <rect x="20" y="20" width="18" height="18" rx="1" fill="#2c2c2c"/>
+    <!-- Top-right finder -->
+    <rect x="110" y="8" width="42" height="42" rx="4" fill="#2c2c2c"/>
+    <rect x="116" y="14" width="30" height="30" rx="2" fill="white"/>
+    <rect x="122" y="20" width="18" height="18" rx="1" fill="#2c2c2c"/>
+    <!-- Bottom-left finder -->
+    <rect x="8" y="110" width="42" height="42" rx="4" fill="#2c2c2c"/>
+    <rect x="14" y="116" width="30" height="30" rx="2" fill="white"/>
+    <rect x="20" y="122" width="18" height="18" rx="1" fill="#2c2c2c"/>
+    <!-- Data modules (decorative) -->
+    <rect x="58" y="8" width="8" height="8" fill="#2c2c2c"/><rect x="70" y="8" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="82" y="8" width="8" height="8" fill="#2c2c2c"/><rect x="58" y="20" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="70" y="32" width="8" height="8" fill="#2c2c2c"/><rect x="94" y="20" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="58" y="58" width="8" height="8" fill="#2c2c2c"/><rect x="70" y="58" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="82" y="58" width="8" height="8" fill="#2c2c2c"/><rect x="94" y="58" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="58" y="70" width="8" height="8" fill="#2c2c2c"/><rect x="82" y="70" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="58" y="82" width="8" height="8" fill="#2c2c2c"/><rect x="70" y="82" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="94" y="82" width="8" height="8" fill="#2c2c2c"/><rect x="58" y="94" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="82" y="94" width="8" height="8" fill="#2c2c2c"/><rect x="110" y="58" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="122" y="58" width="8" height="8" fill="#2c2c2c"/><rect x="134" y="58" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="110" y="70" width="8" height="8" fill="#2c2c2c"/><rect x="134" y="70" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="122" y="82" width="8" height="8" fill="#2c2c2c"/><rect x="134" y="82" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="110" y="94" width="8" height="8" fill="#2c2c2c"/><rect x="122" y="94" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="8" y="58" width="8" height="8" fill="#2c2c2c"/><rect x="20" y="58" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="32" y="70" width="8" height="8" fill="#2c2c2c"/><rect x="8" y="82" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="20" y="82" width="8" height="8" fill="#2c2c2c"/><rect x="32" y="82" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="8" y="94" width="8" height="8" fill="#2c2c2c"/><rect x="32" y="94" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="110" y="110" width="8" height="8" fill="#2c2c2c"/><rect x="122" y="110" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="110" y="122" width="8" height="8" fill="#2c2c2c"/><rect x="134" y="122" width="8" height="8" fill="#2c2c2c"/>
+    <rect x="122" y="134" width="8" height="8" fill="#2c2c2c"/><rect x="110" y="134" width="8" height="8" fill="#2c2c2c"/>
+  </svg>`;
+
+  content.innerHTML = `
+    <div class="mob-qr-section">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--charcoal);margin-bottom:4px;">Guest Check-in QR</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;">Display at the venue entrance for guests to scan</div>
+      <div class="mob-qr-card">
+        <div class="mob-qr-body">
+          ${qrSvg}
+          <div style="font-size:11px;color:var(--muted);margin-bottom:14px;word-break:break-all;">${checkinUrl}</div>
+          <button onclick="navigator.clipboard.writeText('${checkinUrl}').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy link',1500)})"
+            style="width:100%;padding:13px;background:var(--sage);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:white;cursor:pointer;margin-bottom:10px;">
+            Copy link
+          </button>
+          <a href="${checkinUrl}" target="_blank"
+            style="display:block;text-align:center;padding:13px;border:1.5px solid var(--sage-light);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--sage);text-decoration:none;">
+            Preview guest experience ↗
+          </a>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:white;border:1px solid #e8e4de;border-radius:12px;overflow:hidden;">
+        <button onclick="exportData()" style="width:100%;padding:14px 16px;text-align:left;background:none;border:none;border-bottom:1px solid #f0ede8;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--charcoal);cursor:pointer;">Export CSV →</button>
+        <button onclick="mobResetAll()" style="width:100%;padding:14px 16px;text-align:left;background:none;border:none;font-family:'DM Sans',sans-serif;font-size:14px;color:#c0392b;cursor:pointer;">Reset all check-ins</button>
+      </div>
+    </div>`;
+}
+
+function mobSetFilter(f) {
+  mobileFilter = f;
+  renderMobileGuests();
+}
+
+function mobSearchInput(val) {
+  mobileSearch = val;
+  renderMobileGuests();
+}
+
+function mobTogglePending(key) {
+  if (mobilePending.has(key)) mobilePending.delete(key);
+  else mobilePending.add(key);
+  // Update just the checkbox element
+  document.querySelectorAll(`[data-mkey="${CSS.escape(key)}"].mob-guest-select`).forEach(el => {
+    const arrived = arrivedGuests.has(key);
+    const pending = mobilePending.has(key);
+    el.className = 'mob-guest-select' + (pending ? (arrived ? ' pending-arrived' : ' pending') : '');
+    el.innerHTML = pending ? `<svg width="12" height="12" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : '';
+  });
+  mobUpdateActionBar();
+}
+
+function mobUpdateActionBar() {
+  const bar = document.getElementById('mob-action-bar');
+  const label = document.getElementById('mob-action-label');
+  const confirm = document.getElementById('mob-action-confirm');
+  if (!bar) return;
+  const n = mobilePending.size;
+  if (n === 0) { bar.classList.remove('visible', 'deregister'); return; }
+  bar.classList.add('visible');
+  const checkedIn = [...mobilePending].filter(k => arrivedGuests.has(k));
+  const allArrived = checkedIn.length === n;
+  if (allArrived) {
+    bar.classList.add('deregister');
+    label.textContent = `De-register ${n} guest${n!==1?'s':''}`;
+    confirm.textContent = 'De-register';
+    confirm.style.color = '#c0392b';
+  } else {
+    bar.classList.remove('deregister');
+    label.textContent = `Check in ${n} guest${n!==1?'s':''}`;
+    confirm.textContent = 'Check in';
+    confirm.style.color = 'var(--sage)';
+  }
+}
+
+function mobClearPending() {
+  mobilePending.clear();
+  mobUpdateActionBar();
+  renderMobileGuests();
+}
+
+async function mobConfirmCheckin() {
+  if (mobilePending.size === 0) return;
+  const checkedIn = [...mobilePending].filter(k => arrivedGuests.has(k));
+  const notCheckedIn = [...mobilePending].filter(k => !arrivedGuests.has(k));
+  if (checkedIn.length > 0 && notCheckedIn.length > 0) return;
+  if (checkedIn.length > 0) await fbSetCheckinMulti(checkedIn, false);
+  else await fbSetCheckinMulti(notCheckedIn, true);
+  mobilePending.clear();
+  mobUpdateActionBar();
+}
+
+async function mobDirectCheckin(key) {
+  const guestName = key.split('|')[1];
+  if (arrivedGuests.has(key)) {
+    await fbSetCheckin(guestName, false);
+  } else {
+    mobilePending.delete(key);
+    await fbSetCheckin(guestName, true);
+  }
+  mobUpdateActionBar();
+}
+
+async function mobResetAll() {
+  if (confirm('Reset all check-ins?')) {
+    await set(ref(db, 'checkins'), null);
+    mobilePending.clear();
+    mobUpdateActionBar();
+  }
+}
+
+// Expose mobile functions to inline onclick handlers
+window.mobSetTab      = mobSetTab;
+window.mobSetFilter   = mobSetFilter;
+window.mobSearchInput = mobSearchInput;
+window.mobTogglePending = mobTogglePending;
+window.mobDirectCheckin = mobDirectCheckin;
+window.mobClearPending  = mobClearPending;
+window.mobConfirmCheckin = mobConfirmCheckin;
+window.mobResetAll    = mobResetAll;
+window.mobGoToTable   = mobGoToTable;
+
 // ─── GUEST CHECK-IN MODE ─────────────────────────────────────────────────────
 if (isCheckinMode) {
   document.body.style.overflow = 'auto';
@@ -1648,48 +2178,51 @@ if (isCheckinMode) {
       <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#7a7a7a;margin-top:6px;letter-spacing:0.04em;">Saturday, 2 May 2026</div>
     </div>`;
 
-  // ── SCREEN -1: PIN ───────────────────────────────────────────────────────────
+  // ── SCREEN -1: PIN (numpad) ──────────────────────────────────────────────────
+  let pinDigits = [];
+
   function renderPin(errorMsg) {
+    const boxes = [0,1,2,3].map(i =>
+      `<div class="pin-box ${i < pinDigits.length ? 'filled' : ''}">${i < pinDigits.length ? '●' : ''}</div>`
+    ).join('');
+
     overlay.innerHTML = `
-      <div style="width:100%;max-width:420px;padding:0 20px;">
+      <div style="width:100%;max-width:380px;padding:0 20px;">
         ${eventHeader}
         <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
-          <div style="font-size:13px;font-weight:500;color:#2c2c2c;margin-bottom:6px;">Enter event PIN</div>
+          <div style="font-size:13px;font-weight:500;color:#2c2c2c;margin-bottom:4px;">Enter event PIN</div>
           <div style="font-size:12px;color:#7a7a7a;margin-bottom:20px;">Your PIN is on your invitation.</div>
-          <div style="display:flex;justify-content:center;gap:10px;margin-bottom:${errorMsg?'10px':'20px'};">
-            ${[0,1,2,3].map(i=>`<input id="pin${i}" type="password" inputmode="numeric" maxlength="1"
-              style="width:48px;height:56px;text-align:center;font-size:22px;font-weight:500;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;">`).join('')}
+          <div class="pin-boxes">${boxes}</div>
+          ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-bottom:16px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
+          <div class="numpad">
+            ${['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k =>
+              k === '' ? `<div class="numpad-key empty"></div>` :
+              `<button class="numpad-key${k==='⌫'?' backspace':''}" onclick="numpadPress('${k}')">${k}</button>`
+            ).join('')}
           </div>
-          ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-bottom:14px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
-          <button id="pinBtn" style="width:100%;padding:14px;background:#7a8c78;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:white;cursor:pointer;">Continue →</button>
         </div>
       </div>`;
 
-    const inputs = [0,1,2,3].map(i => document.getElementById(`pin${i}`));
-    inputs[0].focus();
-
-    inputs.forEach((inp, i) => {
-      inp.addEventListener('input', () => {
-        inp.value = inp.value.replace(/\D/g,'').slice(-1);
-        if (inp.value && i < 3) inputs[i+1].focus();
-        if (inputs.every(x => x.value)) checkPin();
-      });
-      inp.addEventListener('keydown', e => {
-        if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
-      });
-    });
-
-    const checkPin = () => {
-      const pin = inputs.map(x => x.value).join('');
-      if (pin === GUEST_PIN) {
-        loadGuestsThenSearch();
-      } else {
-        inputs.forEach(x => x.value = '');
-        renderPin('Incorrect PIN. Please try again.');
+    window.numpadPress = function(key) {
+      if (key === '⌫') {
+        pinDigits.pop();
+        renderPin();
+        return;
       }
+      if (pinDigits.length >= 4) return;
+      pinDigits.push(key);
+      if (pinDigits.length === 4) {
+        const pin = pinDigits.join('');
+        pinDigits = [];
+        if (pin === GUEST_PIN) {
+          loadGuestsThenSearch();
+        } else {
+          renderPin('Incorrect PIN. Please try again.');
+        }
+        return;
+      }
+      renderPin();
     };
-
-    document.getElementById('pinBtn').addEventListener('click', checkPin);
   }
 
   async function loadGuestsThenSearch() {

@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git revert *)"
+      "Bash(git revert *)",
+      "PowerShell($lines = \\(Get-Content \"C:\\\\Wedding2026\\\\wedding2026\\\\index.html\"\\).Count; Write-Host \"Total lines: $lines\"; Get-Content \"C:\\\\Wedding2026\\\\wedding2026\\\\index.html\" | Select-Object -Last 10)"
     ]
   }
 }
