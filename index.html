@@ -964,6 +964,13 @@ if (isCheckinMode) {
 
 // ─── ADMIN BOOT ───────────────────────────────────────────────────────────────
 async function bootAdmin() {
+  // Re-evaluate at boot time — module-level matchMedia can fire before layout settles.
+  // Also check innerWidth as a fallback, and allow URL param override for testing.
+  const urlView = new URLSearchParams(window.location.search).get('view');
+  if (urlView === 'mobile') isMobile = true;
+  else if (urlView === 'desktop') isMobile = false;
+  else isMobile = window.matchMedia('(max-width: 768px)').matches || window.innerWidth <= 768;
+
   if (isMobile) {
     await bootMobileAdmin();
     return;
@@ -1749,6 +1756,8 @@ window.selectAdminGuest = (name) => {
   document.getElementById('adminAutocomplete').style.display = 'none';
   filterGuests();
 };
+window.signOut = signOut;
+window.auth    = auth;
 
 // ─── MOBILE ADMIN ────────────────────────────────────────────────────────────
 async function bootMobileAdmin() {
