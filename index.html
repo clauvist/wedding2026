@@ -648,6 +648,60 @@
   .numpad-key:active { background: var(--sage-pale); }
   .numpad-key.backspace { font-size: 16px; color: var(--muted); }
   .numpad-key.empty { border-color: transparent; background: transparent; cursor: default; }
+
+  /* ─── RESPONSIVE DESKTOP (≤ 768px) ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    body { height: auto; overflow-y: auto; }
+
+    header {
+      flex-wrap: wrap;
+      padding: 10px 14px;
+      gap: 8px;
+    }
+    .header-actions {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .btn { font-size: 11px; padding: 6px 10px; }
+    .stats { font-size: 11px; padding: 5px 10px; }
+
+    .layout {
+      flex-direction: column;
+      height: auto;
+      overflow: visible;
+    }
+
+    /* Floor plan panel: fixed height, scrollable — diagram stays full size */
+    .canvas-wrap {
+      flex: none;
+      height: 420px;
+      overflow: auto;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 12px;
+    }
+
+    /* Override any JS-injected scale so the diagram is never shrunk */
+    .ballroom-scaler {
+      width: 580px !important;
+      height: 860px !important;
+      min-width: 580px;
+    }
+    .ballroom {
+      transform: none !important;
+      transform-origin: unset !important;
+    }
+
+    /* Sidebar goes full-width below the floor plan */
+    .sidebar {
+      width: 100%;
+      max-height: 55vh;
+      border-left: none;
+      border-top: 1px solid #e8e4de;
+      flex-shrink: 0;
+    }
+  }
 </style>
 </head>
 <body>
@@ -964,18 +1018,6 @@ if (isCheckinMode) {
 
 // ─── ADMIN BOOT ───────────────────────────────────────────────────────────────
 async function bootAdmin() {
-  // Re-evaluate at boot time — module-level matchMedia can fire before layout settles.
-  // Also check innerWidth as a fallback, and allow URL param override for testing.
-  const urlView = new URLSearchParams(window.location.search).get('view');
-  if (urlView === 'mobile') isMobile = true;
-  else if (urlView === 'desktop') isMobile = false;
-  else isMobile = window.matchMedia('(max-width: 768px)').matches || window.innerWidth <= 768;
-
-  if (isMobile) {
-    await bootMobileAdmin();
-    return;
-  }
-
   document.querySelector('header').style.display = '';
   document.querySelector('.layout').style.display = '';
 
@@ -1509,6 +1551,7 @@ function showQRPanel() {
 }
 
 function scaleBallroom() {
+  if (window.innerWidth <= 768) return; // handled by CSS on mobile
   const wrap = document.getElementById('canvasWrap');
   const scaler = document.getElementById('ballroomScaler');
   const ballroom = document.getElementById('ballroom');
