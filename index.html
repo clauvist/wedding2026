@@ -1761,17 +1761,29 @@ window.auth    = auth;
 
 // ─── MOBILE ADMIN ────────────────────────────────────────────────────────────
 async function bootMobileAdmin() {
-  // Initial guest load
-  const guestSnap = await get(ref(db, 'guests'));
-  if (guestSnap.exists()) {
-    guestData = Object.values(guestSnap.val());
-    guestsByTable = {};
-    guestData.forEach(g => {
-      if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
-      guestsByTable[g.table].push(g);
-    });
+  // Create shell immediately — confirms mobile path reached and prevents race with onValue
+  const shell = document.createElement('div');
+  shell.id = 'mobile-admin';
+  shell.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:'DM Sans',sans-serif;font-size:14px;color:#7a7a7a;">Loading…</div>`;
+  document.body.appendChild(shell);
+
+  // Load guest list
+  try {
+    const guestSnap = await get(ref(db, 'guests'));
+    if (guestSnap.exists()) {
+      guestData = Object.values(guestSnap.val());
+      guestsByTable = {};
+      guestData.forEach(g => {
+        if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
+        guestsByTable[g.table].push(g);
+      });
+    }
+  } catch (e) {
+    shell.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:'DM Sans',sans-serif;font-size:14px;color:#c0392b;padding:24px;text-align:center;">Failed to load guest data.<br><span style="font-size:12px;color:#7a7a7a;margin-top:8px;display:block;">${e.message}</span></div>`;
+    return;
   }
 
+  // Listen to check-ins — shell already exists so renderMobileContent() is safe
   onValue(ref(db, 'checkins'), snap => {
     arrivedGuests = new Set();
     if (snap.exists()) {
@@ -1786,10 +1798,6 @@ async function bootMobileAdmin() {
     renderMobileContent();
   });
 
-  // Create shell
-  const shell = document.createElement('div');
-  shell.id = 'mobile-admin';
-  document.body.appendChild(shell);
   renderMobileShell();
 }
 
