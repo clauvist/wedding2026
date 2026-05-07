@@ -53,51 +53,33 @@ const eventHeader = `
   </div>`;
 
 // ─── SCREEN -1: PIN ───────────────────────────────────────────────────────────
-let pinDigits = [];
-
 function renderPin(errorMsg) {
-  const boxes = [0,1,2,3].map(i =>
-    `<div class="pin-box ${i < pinDigits.length ? 'filled' : ''}">${i < pinDigits.length ? '●' : ''}</div>`
-  ).join('');
-
   overlay.innerHTML = `
     <div style="width:100%;max-width:380px;padding:0 20px;">
       ${eventHeader}
       <div style="background:white;border:1px solid #e8e4de;border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
         <div style="font-size:13px;font-weight:500;color:#2c2c2c;margin-bottom:4px;">Enter event PIN</div>
-        <div style="font-size:12px;color:#7a7a7a;margin-bottom:20px;">Your PIN is on your invitation.</div>
-        <div class="pin-boxes">${boxes}</div>
-        ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-bottom:16px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
-        <div class="numpad">
-          ${['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k =>
-            k === '' ? `<div class="numpad-key empty"></div>` :
-            `<button class="numpad-key${k==='⌫'?' backspace':''}" onclick="numpadPress('${k}')">${k}</button>`
-          ).join('')}
-        </div>
+        <div style="font-size:12px;color:#7a7a7a;margin-bottom:16px;">Your PIN is on your invitation.</div>
+        <input id="pinInput" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN"
+          style="width:100%;padding:14px;font-size:20px;letter-spacing:0.25em;text-align:center;border:1.5px solid #e0dbd4;border-radius:10px;background:#faf8f4;color:#2c2c2c;outline:none;font-family:'DM Sans',sans-serif;transition:border-color 0.15s;"
+          onkeydown="if(event.key==='Enter')submitPin()">
+        ${errorMsg ? `<div style="font-size:12px;color:#c0392b;margin-top:12px;padding:8px 12px;background:#fdf0ee;border-radius:8px;">${errorMsg}</div>` : ''}
       </div>
+      <button onclick="submitPin()" style="width:100%;padding:16px;background:#7a8c78;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:white;cursor:pointer;">Continue →</button>
     </div>`;
 
-  window.numpadPress = async function(key) {
-    if (key === '⌫') {
-      pinDigits.pop();
-      renderPin();
-      return;
+  document.getElementById('pinInput').focus();
+
+  window.submitPin = async function() {
+    const pin = document.getElementById('pinInput').value.trim();
+    if (!pin) return;
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
+    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (hash === GUEST_PIN_HASH) {
+      loadGuestsThenSearch();
+    } else {
+      renderPin('Incorrect PIN. Please try again.');
     }
-    if (pinDigits.length >= 4) return;
-    pinDigits.push(key);
-    if (pinDigits.length === 4) {
-      const pin = pinDigits.join('');
-      pinDigits = [];
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
-      const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-      if (hash === GUEST_PIN_HASH) {
-        loadGuestsThenSearch();
-      } else {
-        renderPin('Incorrect PIN. Please try again.');
-      }
-      return;
-    }
-    renderPin();
   };
 }
 
