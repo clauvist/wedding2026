@@ -1,5 +1,5 @@
 import { signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { GUEST_PIN } from './config.js';
+import { GUEST_PIN_HASH } from './config.js';
 import {
   auth, tables,
   guestData, guestsByTable, arrivedGuests,
@@ -77,7 +77,7 @@ function renderPin(errorMsg) {
       </div>
     </div>`;
 
-  window.numpadPress = function(key) {
+  window.numpadPress = async function(key) {
     if (key === '⌫') {
       pinDigits.pop();
       renderPin();
@@ -88,7 +88,9 @@ function renderPin(errorMsg) {
     if (pinDigits.length === 4) {
       const pin = pinDigits.join('');
       pinDigits = [];
-      if (pin === GUEST_PIN) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
+      const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      if (hash === GUEST_PIN_HASH) {
         loadGuestsThenSearch();
       } else {
         renderPin('Incorrect PIN. Please try again.');
