@@ -64,10 +64,10 @@
 
 <script type="module">
 const params = new URLSearchParams(window.location.search);
-if (params.has('checkin')) {
-  import('./checkin.js');
-} else {
+if (params.has('admin')) {
   import('./admin.js');
+} else {
+  import('./checkin.js');
 }
 </script>
 </body>
