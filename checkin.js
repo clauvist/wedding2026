@@ -6,10 +6,6 @@ import {
   guestKey, loadGuestData, fbSetCheckin,
 } from './firebase.js';
 
-// Hide the admin shell while the guest flow renders its own UI
-document.querySelector('header').style.display = 'none';
-document.querySelector('.layout').style.display = 'none';
-
 document.body.style.overflow = 'auto';
 document.body.style.height = 'auto';
 document.body.style.background = '#faf8f4';
