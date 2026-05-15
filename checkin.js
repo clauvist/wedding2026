@@ -319,5 +319,13 @@ function showTableView(guestName, tableId) {
   };
 }
 
-// Boot — show PIN screen first
-renderPin();
+// Boot — auto-submit PIN from URL param if present, otherwise show PIN screen
+(async () => {
+  const urlPin = new URLSearchParams(window.location.search).get('pin');
+  if (urlPin) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(urlPin));
+    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (hash === GUEST_PIN_HASH) { loadGuestsThenSearch(); return; }
+  }
+  renderPin();
+})();
