@@ -37,19 +37,22 @@ function findMatches(query) {
   const cleanWord = w => w.replace(/[(),.'"]/g,'');
   const scored = guestData.map(g => {
     const words = g.name.toLowerCase().split(' ').map(cleanWord).filter(Boolean);
-    let score;
-    if (words.some(w => w.includes(q))) score = 0;
-    else score = Math.min(...words.map(w => levenshtein(q, w)));
-    return { g, score };
+    if (words.some(w => w.startsWith(q)))      return { g, score: 0 };
+    if (words.some(w => w.includes(q)))         return { g, score: 1 };
+    if (q.length >= 4) {
+      const minDist = Math.min(...words.map(w => levenshtein(q, w)));
+      if (minDist === 1)                         return { g, score: 2 };
+    }
+    return { g, score: Infinity };
   });
-  return scored.filter(({score}) => score < 2).sort((a,b) => a.score-b.score).slice(0,6).map(({g}) => g);
+  return scored.filter(({score}) => score < Infinity).sort((a,b) => a.score-b.score).slice(0,6).map(({g}) => g);
 }
 
 const eventHeader = `
   <div style="text-align:center;padding:48px 0 28px;">
     <div style="font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#b8935a;margin-bottom:10px;">Welcome to</div>
     <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:#2c2c2c;line-height:1.2;">Tristan <span style="font-style:italic;color:#b8935a;">&amp;</span> Regina</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#7a7a7a;margin-top:6px;letter-spacing:0.04em;">Saturday, 2 May 2026</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#7a7a7a;margin-top:6px;letter-spacing:0.04em;">Sunday, 31 May 2026</div>
   </div>`;
 
 // ─── SCREEN -1: PIN ───────────────────────────────────────────────────────────

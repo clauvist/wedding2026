@@ -36,7 +36,7 @@ function showLoginScreen(errorMsg) {
       <div class="auth-heading">
         <div class="auth-eyebrow">Admin Access</div>
         <div class="auth-title">Tristan <span>&</span> Regina</div>
-        <div class="auth-subtitle">Wedding Seating — 2 May 2026</div>
+        <div class="auth-subtitle">Wedding Seating — 31 May 2026</div>
       </div>
       <div class="auth-card">
         <div class="auth-hint">Sign in to access the admin panel</div>
