@@ -4,7 +4,7 @@ import { ref, onValue, set, update }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 import {
   auth, db, tables,
-  guestData, guestsByTable, arrivedGuests, tableDescriptions,
+  guestData, guestsByTable, arrivedGuests, tableDescriptions, checkinTimes,
   guestKey, sortTableIds, toKey,
   loadGuestData, rebuildArrivedSet, fbSetCheckin,
 } from './firebase.js';
@@ -16,8 +16,13 @@ let pendingCheckins = new Set();
 // ─── WRITE HELPERS ────────────────────────────────────────────────────────────
 async function fbSetCheckinMulti(keys, value) {
   const updates = {};
-  keys.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = value; });
+  const payload = value ? { time: Date.now() } : false;
+  keys.forEach(k => { updates[`checkins/${toKey(k.split('|')[1])}`] = payload; });
   await update(ref(db), updates);
+}
+
+function formatTime(ms) {
+  return new Date(ms).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
 // ─── LOGIN SCREEN ─────────────────────────────────────────────────────────────
@@ -363,6 +368,7 @@ function makeGuestItem(g) {
   const isVip = g.table === 'VIP';
   const arrived = arrivedGuests.has(key);
   const pending = pendingCheckins.has(key);
+  const timeStr = checkinTimes[key] ? formatTime(checkinTimes[key]) : '';
 
   const item = document.createElement('div');
   item.className = 'guest-item' + (arrived ? ' already-in' : '');
@@ -381,6 +387,7 @@ function makeGuestItem(g) {
     <div class="guest-avatar ${isVip ? 'vip' : ''}" style="margin-left:12px;">${initials}</div>
     <div class="guest-name">${g.name}</div>
     <div class="guest-seat">T${g.table}</div>
+    <div class="checkin-time">${timeStr}</div>
     <div class="checkin-cell ${arrived ? 'arrived' : ''}" data-key="${key}" title="${arrived ? 'Click to undo check-in' : 'Click to check in'}">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -512,8 +519,9 @@ async function confirmCheckin() {
 function updateStats() {
   const total = guestData.length;
   const arrived = arrivedGuests.size;
+  const pct = total > 0 ? Math.round((arrived / total) * 100) : 0;
   document.getElementById('statsBar').innerHTML =
-    `<strong>${arrived}</strong> / ${total} arrived`;
+    `<strong>${arrived}</strong> / ${total} arrived (${pct}%)`;
 }
 
 async function resetAll() {

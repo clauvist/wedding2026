@@ -40,6 +40,7 @@ export let guestData          = [];
 export let guestsByTable      = {};
 export let arrivedGuests      = new Set();
 export let tableDescriptions  = {};
+export let checkinTimes       = {};
 
 export function toKey(name) {
   return encodeURIComponent(name).replace(/\./g, '%2E');
@@ -89,17 +90,23 @@ export async function loadGuestData() {
 
 export function rebuildArrivedSet(snap) {
   arrivedGuests = new Set();
+  checkinTimes  = {};
   if (snap.exists()) {
     Object.entries(snap.val()).forEach(([key, val]) => {
-      if (val === true) {
+      const isCheckedIn = val === true || (val && typeof val === 'object');
+      if (isCheckedIn) {
         const name = fromKey(key);
         const g = guestData.find(g => g.name === name);
-        if (g) arrivedGuests.add(guestKey(g));
+        if (g) {
+          const gk = guestKey(g);
+          arrivedGuests.add(gk);
+          if (val && typeof val === 'object' && val.time) checkinTimes[gk] = val.time;
+        }
       }
     });
   }
 }
 
 export async function fbSetCheckin(guestName, value) {
-  await set(ref(db, `checkins/${toKey(guestName)}`), value);
+  await set(ref(db, `checkins/${toKey(guestName)}`), value ? { time: Date.now() } : false);
 }
