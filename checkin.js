@@ -149,7 +149,7 @@ function showMatchList(matches) {
   box.style.cssText = 'display:block;margin-top:14px;border:1.5px solid #c8d4c6;border-radius:12px;overflow:hidden;';
   box.innerHTML = `<div style="background:#eef2ed;padding:8px 14px;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a8c78;">Select your name</div>` +
     matches.map(g => {
-      const isVip = g.table==='VIP 1';
+      const isVip = g.table==='VIP';
       const initials = g.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
       const sn = g.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
       const st = g.table.replace(/'/g,"\\'");
@@ -166,7 +166,7 @@ function showMatchList(matches) {
 function renderConfirm() {
   const { name: guestName, table: tableId } = resolvedGuest;
   const tablemates = guestData.filter(g => g.table===tableId && g.name!==guestName);
-  const isVip = tableId==='VIP 1';
+  const isVip = tableId==='VIP';
   const alreadyIn = arrivedGuests.has(guestKey(resolvedGuest));
   const initials = guestName.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
 
@@ -242,7 +242,7 @@ function renderSuccess(guestName, tableId) {
 function showTableView(guestName, tableId) {
   const tbl = tables.find(t => t.id===tableId);
   const tablemates = guestData.filter(g => g.table===tableId && g.name!==guestName);
-  const isVip = tableId==='VIP 1';
+  const isVip = tableId==='VIP';
 
   overlay.innerHTML = `
     <div style="width:100%;max-width:420px;padding:0 20px;">
@@ -260,7 +260,7 @@ function showTableView(guestName, tableId) {
             const hi = t.id===tableId;
             const fill = hi?'#7a8c78':(t.type==='vip'?'#e8b84b':'#4db8a0');
             return `<circle cx="${t.cx}" cy="${t.cy}" r="${hi?28:20}" fill="${fill}" opacity="${hi?1:0.3}"/>
-              <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi?13:10}" font-weight="500" fill="white">${t.id==='VIP 1'?'VIP':t.id}</text>`;
+              <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi?13:10}" font-weight="500" fill="white">${t.id==='VIP'?'VIP':t.id}</text>`;
           }).join('')}
           ${tbl?`<circle cx="${tbl.cx}" cy="${tbl.cy}" r="38" fill="none" stroke="#7a8c78" stroke-width="2">
             <animate attributeName="r" values="32;46;32" dur="2s" repeatCount="indefinite"/>

@@ -9,7 +9,7 @@ export const db   = getDatabase(app);
 
 export const tables = [
   {id:'1',     cx:121, cy:175, type:'teal'},
-  {id:'VIP 1', cx:196, cy:175, type:'vip'},
+  {id:'VIP',   cx:196, cy:175, type:'vip'},
   {id:'26',    cx:384, cy:175, type:'teal'},
   {id:'25',    cx:459, cy:175, type:'teal'},
   {id:'2',     cx:121, cy:270, type:'teal'},
@@ -36,9 +36,10 @@ export const tables = [
 
 // Shared mutable state — exported as live bindings so importers always see the latest value.
 // Only code in this module may reassign these variables; importers mutate via the helper functions below.
-export let guestData     = [];
-export let guestsByTable = {};
-export let arrivedGuests = new Set();
+export let guestData          = [];
+export let guestsByTable      = {};
+export let arrivedGuests      = new Set();
+export let tableDescriptions  = {};
 
 export function toKey(name) {
   return encodeURIComponent(name).replace(/\./g, '%2E');
@@ -53,20 +54,36 @@ export function guestKey(g) {
 }
 
 export function sortTableIds(a, b) {
-  if (a === 'VIP 1') return -1;
-  if (b === 'VIP 1') return 1;
+  if (a === 'VIP') return -1;
+  if (b === 'VIP') return 1;
   return parseInt(a) - parseInt(b);
 }
 
 export async function loadGuestData() {
-  const snap = await get(ref(db, 'guests'));
-  if (snap.exists()) {
-    guestData = Object.values(snap.val());
+  const [guestSnap, descSnap] = await Promise.all([
+    get(ref(db, 'guests')),
+    get(ref(db, 'tableDescriptions')),
+  ]);
+
+  if (guestSnap.exists()) {
+    guestData = Object.values(guestSnap.val()).map(g => ({
+      ...g,
+      table: /^vip/i.test(g.table) ? 'VIP' : g.table,
+    }));
     guestsByTable = {};
     guestData.forEach(g => {
       if (!guestsByTable[g.table]) guestsByTable[g.table] = [];
       guestsByTable[g.table].push(g);
     });
+  }
+
+  if (descSnap.exists()) {
+    tableDescriptions = Object.fromEntries(
+      Object.entries(descSnap.val()).map(([k, v]) => [
+        /^vip/i.test(k) ? 'VIP' : k,
+        v,
+      ])
+    );
   }
 }
 

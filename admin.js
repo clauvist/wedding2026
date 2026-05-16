@@ -4,7 +4,7 @@ import { ref, onValue, set, update }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 import {
   auth, db, tables,
-  guestData, guestsByTable, arrivedGuests,
+  guestData, guestsByTable, arrivedGuests, tableDescriptions,
   guestKey, sortTableIds, toKey,
   loadGuestData, rebuildArrivedSet, fbSetCheckin,
 } from './firebase.js';
@@ -143,7 +143,7 @@ function initBallroom() {
 
     const label = document.createElement('div');
     label.className = 'table-label';
-    label.innerHTML = t.id === 'VIP 1' ? 'VIP<br>1' : t.id;
+    label.innerHTML = t.id;
     el.appendChild(label);
 
     const ratio = document.createElement('div');
@@ -258,7 +258,7 @@ function filterGuests() {
     autocomplete.style.display = 'none';
     const tq = tableMatch[1].trim().toUpperCase();
     const allIds = [...new Set(guestData.map(g => g.table))];
-    const matchedId = allIds.find(id => id.toUpperCase() === tq || id.toUpperCase() === tq.replace('VIP1','VIP 1'));
+    const matchedId = allIds.find(id => id.toUpperCase() === tq);
     if (matchedId) {
       document.querySelectorAll('.table').forEach(el => {
         el.classList.toggle('selected', el.dataset.tableId === matchedId);
@@ -267,8 +267,9 @@ function filterGuests() {
       updateTableRatio(matchedId);
       const count = guestData.filter(g => g.table === matchedId).length;
       const arrivedCount = guestData.filter(g => g.table === matchedId && arrivedGuests.has(guestKey(g))).length;
+      const desc = tableDescriptions[matchedId];
       title.textContent = `Table ${matchedId}`;
-      sub.textContent = `${count} guests · ${arrivedCount} checked in`;
+      sub.textContent = (desc ? `${desc} · ` : '') + `${count} guests · ${arrivedCount} checked in`;
     } else {
       title.textContent = 'No table found';
       sub.textContent = `"${q}"`;
@@ -280,7 +281,7 @@ function filterGuests() {
     const suggestions = matches.slice(0, 6);
     if (suggestions.length > 0) {
       autocomplete.innerHTML = suggestions.map(g => {
-        const isVip = g.table === 'VIP 1';
+        const isVip = g.table === 'VIP';
         const initials = g.name.split(' ').filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join('');
         const safeName = g.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
         return `<div class="admin-autocomplete-item" onmousedown="selectAdminGuest('${safeName}')">
@@ -342,9 +343,10 @@ function renderGuests() {
       const arrivedCount = allInTable.filter(g => arrivedGuests.has(guestKey(g))).length;
       const sec = document.createElement('div');
       sec.className = 'table-section-label';
+      const desc = tableDescriptions[tbl];
       sec.textContent = showMissingOnly
         ? `Table ${tbl} · ${byTable[tbl].length} missing`
-        : `Table ${tbl} · ${allInTable.length} guests · ${arrivedCount} checked in`;
+        : `Table ${tbl}` + (desc ? ` · ${desc}` : '') + ` · ${allInTable.length} guests · ${arrivedCount} checked in`;
       list.appendChild(sec);
       byTable[tbl].forEach(g => list.appendChild(makeGuestItem(g)));
     });
@@ -358,7 +360,7 @@ function renderGuests() {
 
 function makeGuestItem(g) {
   const key = guestKey(g);
-  const isVip = g.table === 'VIP 1';
+  const isVip = g.table === 'VIP';
   const arrived = arrivedGuests.has(key);
   const pending = pendingCheckins.has(key);
 
