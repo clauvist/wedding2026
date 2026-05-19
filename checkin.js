@@ -259,11 +259,11 @@ function showTableView(guestName, tableId) {
           ${tables.map(t => {
             const hi = t.id===tableId;
             const fill = hi?'#7a8c78':(t.type==='vip'?'#c9a96e':'#9aab98');
-            return `<circle cx="${t.cx}" cy="${t.cy}" r="${hi?32:24}" fill="${fill}" opacity="${hi?1:0.65}"/>
-              <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi?14:12}" font-weight="500" fill="white">${t.id==='VIP'?'VIP':t.id}</text>`;
+            return `<circle cx="${t.cx}" cy="${t.cy}" r="${hi?38:30}" fill="${fill}" opacity="${hi?1:0.65}"/>
+              <text x="${t.cx}" y="${t.cy}" text-anchor="middle" dominant-baseline="central" font-family="DM Sans,sans-serif" font-size="${hi?21:18}" font-weight="500" fill="white">${t.id==='VIP'?'VIP':t.id}</text>`;
           }).join('')}
-          ${tbl?`<circle cx="${tbl.cx}" cy="${tbl.cy}" r="38" fill="none" stroke="#7a8c78" stroke-width="2">
-            <animate attributeName="r" values="32;46;32" dur="2s" repeatCount="indefinite"/>
+          ${tbl?`<circle cx="${tbl.cx}" cy="${tbl.cy}" r="44" fill="none" stroke="#7a8c78" stroke-width="2">
+            <animate attributeName="r" values="38;54;38" dur="2s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
           </circle>`:''}
         </svg>
